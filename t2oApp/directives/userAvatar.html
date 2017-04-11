@@ -1,0 +1,4 @@
+<div class="user-avatar">
+    <img ng-show="!!model.imageUrl" ng-src="{{model.imageUrl}}">
+    <span ng-show="!model.imageUrl" ng-bind="model | userAvatar"></span>
+</div>

@@ -1,0 +1,26 @@
+<div class="plan-votes" ng-show="!!participants.length" ng-class="{'invisible': !favor}">
+    <span class="plan-votes__item">
+        <i ng-if="!mirrored" class="fa fa-user text-accept"></i>
+        <span ng-cloak>{{favor}}</span>
+        <i ng-if="mirrored" class="fa fa-user text-accept"></i>
+        <span ng-show="!altNumber && !shortcut">Voted</span>
+        <span ng-show="!!toPass && !tie && !!altNumber">Favor</span>
+        <span ng-show="!!tie">Tie</span>
+        <span class="text-accept text-bold"
+              ng-show="!toPass && !tie && !!altNumber">
+            PASSED
+        </span>
+    </span>
+    <span class="plan-votes__item" ng-class="{'invisible': !toPass || !!shortcut}">
+        <i class="fa fa-user"></i>
+        <span ng-cloak>{{toPass}}</span>
+        <span>Pending</span>
+    </span>
+    <span class="plan-votes__item"
+          ng-if="(!!toPass || !!tie) && !!altNumber && (altNumber >= 2) && !shortcut">
+          <!--ng-class="{'invisible': (!toPass && !tie) || !altNumber || (altNumber < 2) || !!shortcut}">-->
+        <i class="fa fa-list-alt"></i>
+        <span ng-cloak>{{altNumber - 1}}</span>
+        <span>Alt</span>
+    </span>
+</div>

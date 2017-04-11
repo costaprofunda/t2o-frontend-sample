@@ -1,0 +1,20 @@
+<div class="modal-body confirmation-modal">
+    <div class="row">
+        <div class="col-md-3 col-xs-3 col-sm-3 sign-row" ng-switch="vmConfirmation.type">
+            <i ng-switch-when="question" class="fa fa-question-circle"></i>
+            <i ng-switch-when="warning" class="fa fa-exclamation-triangle"></i>
+        </div>
+        <div class="col-md-9 notification-text-col">
+            <span class="notification-text" ng-bind="vmConfirmation.message"></span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <span class="cancel" ng-click="vmConfirmation.cancel()"
+              ng-bind="(!vmConfirmation.yesNo) ? 'Cancel' : 'No'"></span>
+        <button class="btn" ng-click="vmConfirmation.confirm()">
+            <span ng-bind="(!vmConfirmation.yesNo) ? 'Confirm' : 'Yes'"></span>
+        </button>
+    </div>
+</div>

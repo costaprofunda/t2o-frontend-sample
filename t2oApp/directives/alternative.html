@@ -1,0 +1,123 @@
+<div class="new-item-alternative">
+    <div ng-show="type.identity !== 'POLICY'">
+        <div class="form-group">
+            <plan-field-input ng-if="type.identity !== 'VENDOR'"
+                              tip="Enter provider">
+                <input type="text"
+                       class="form-control"
+                       ng-model="newItem.provider"
+                       placeholder="{{'Who will provide this ' + type.name.toLowerCase() + '?'}}">
+            </plan-field-input>
+            <plan-field-input tip="Enter name"
+                              errors="errors.name"
+                              required="true">
+                <input type="text"
+                       class="form-control"
+                       ng-model="newItem.name"
+                       placeholder="{{type.name + ' Name'}}">
+            </plan-field-input>
+        </div>
+        <div class="text-center">
+            <span>Is this a recurring cost?</span>
+        </div>
+        <div class="form-group new-plan__number-of-agree-form-group">
+            <plan-field-input
+                    tooltip-bottom="true"
+                    tip="Reoccuring costs are ones that are paid on a regular basis. Use yearly totals for these costs.">
+                <label class="form-control no-padding text-center">
+                    <span class="checkbox-replacement" ng-class="{'no': !newItem.reoccurringPrice}">
+                        No
+                    </span>
+                    <span class="checkbox-replacement" ng-class="{'yes': newItem.reoccurringPrice}">
+                        Yes
+                    </span>
+                    <input class="form-control position-left-hidden"
+                           type="checkbox"
+                           ng-model="newItem.reoccurringPrice">
+                </label>
+            </plan-field-input>
+        </div>
+        <div class="form-group">
+            <plan-field-input tip="Enter all inclusive price"
+                              errors="errors.price"
+                              required="true">
+                <input type="text"
+                       ng-if="!newItem.reoccurringPrice"
+                       class="form-control"
+                       model="newItem.price"
+                       allow-zero="(type.identity !== 'VENDOR')"
+                       currency-input
+                       size="30"
+                       placeholder="All Inclusive Price">
+                <input type="text"
+                       ng-if="newItem.reoccurringPrice"
+                       class="form-control"
+                       model="newItem.price"
+                       currency-input
+                       size="30"
+                       placeholder="Yearly All Inclusive Price">
+            </plan-field-input>
+            <plan-field-input tip="Example: http://www.apple.com/iphone-6/">
+                <input class="form-control"
+                       placeholder="URL"
+                       ng-model="newItem.url">
+            </plan-field-input>
+            <plan-field-input
+                    tip="This is the name of the contact at the Vendor Location, often this is the name of a salesperson"
+                    ng-show="type.identity === 'VENDOR'">
+                <input class="form-control"
+                       placeholder="Contact Name"
+                       ng-model="newItem.contactName">
+            </plan-field-input>
+            <plan-field-input tip="Example: 512-512-5151"
+                              ng-show="type.identity === 'VENDOR'">
+                <input class="form-control"
+                       placeholder="Phone"
+                       ng-model="newItem.phone">
+            </plan-field-input>
+            <plan-field-input tip="Example: asmith@bestbuy.com"
+                              ng-show="type.identity === 'VENDOR'">
+                <input class="form-control"
+                       type="email"
+                       placeholder="Email"
+                       ng-model="newItem.email">
+            </plan-field-input>
+            <plan-field-input
+                    tip="Example: iPhone 6 isn’t simply bigger — it’s better in every way. Larger, yet dramatically...">
+                <textarea placeholder="Description"
+                          maxlength="1000"
+                          class="form-control"
+                          rows="4"
+                          ng-model="newItem.description">
+                </textarea>
+            </plan-field-input>
+            <plan-field-input tip="Example: This includes a 2 year contract with Verizon Wireless">
+                <textarea placeholder="Why is this a good deal?"
+                          class="form-control"
+                          rows="4"
+                          ng-model="newItem.goodDeal">
+                </textarea>
+            </plan-field-input>
+        </div>
+    </div>
+    <div class="form-group" ng-show="type.identity === 'POLICY'">
+        <plan-field-input errors="errors.name"
+                          required="true"
+                          tip="Example: Yes">
+            <textarea placeholder="Answer"
+                      maxlength="140"
+                      class="form-control"
+                      rows="4"
+                      ng-model="newItem.name">
+            </textarea>
+        </plan-field-input>
+        <plan-field-input tip="Example: Because">
+            <textarea placeholder="Explanation"
+                      maxlength="140"
+                      class="form-control"
+                      rows="4"
+                      ng-model="newItem.description">
+            </textarea>
+        </plan-field-input>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="notifications">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-header">
+                <div class="section-title">Notifications</div>
+                <div class="additional-info">
+                    <span ng-show="!vmNotifications.pager.totalCount">No messages</span>
+                    <span ng-show="!!vmNotifications.pager.totalCount">
+                        <span ng-bind="vmNotifications.unreadCount"></span> Unread | <span ng-bind="vmNotifications.pager.totalCount"></span> Total
+                    </span>
+                </div>
+            </div>
+            <div class="notifications-actions actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="action" ng-show="!vmNotifications.getSelectedNotifications().length"
+                              ng-click="vmNotifications.checkAll(true)">
+                            Select All
+                        </span>
+                        <span ng-show="!!vmNotifications.getSelectedNotifications().length">
+                            <span class="action" ng-click="vmNotifications.checkAll(false)">Deselect All</span>
+                            <span class="action" ng-click="vmNotifications.markSelectedNotificationsAsRead()">
+                                Mark As Read
+                            </span>
+                            <span class="action" ng-click="vmNotifications.removeSelectedNotifications()">Delete</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="notifications-area">
+                <div class="row">
+                    <div class="col-md-12">
+                        <uib-alert class="alert-notification" type="warning"
+                                   ng-repeat="notification in vmNotifications.items track by $index">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2 col-xs-5 col">
+                                    <div class="col-inner">
+                                        <input class="check" type="checkbox" ng-model="notification.checked">
+                                        <span class="go-to-plan" ng-if="!!notification.planId"
+                                              ui-sref="home.itemReview({id: notification.planId})">
+                                            <img ng-src="{{notification.planImageUrl}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-5 col">
+                                    <div class="col-inner">
+                                        <span class="text" ng-bind="notification.message"
+                                              ng-style="{'color': (!notification.read) ? '#fff' : '#bebebe'}"></span>
+                                        <span ng-show="!notification.read" class="read hidden-xs"
+                                              uib-tooltip="Mark as read" tooltip-placement="bottom"
+                                              ng-click="vmNotifications.markNotificationAsRead(notification)">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 col-sm-1 col-xs-2 col">
+                                    <div class="col-inner">
+                                        <img ng-src="resources/images/times-white.svg" alt="Close" class="close-image"
+                                             ng-click="vmNotifications.removeNotification(notification)">
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-alert>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-area" ng-show="!!vmNotifications.items.length">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="pagination-outter">
+                            <uib-pagination ng-model="vmNotifications.pager.currentPage"
+                                            total-items="vmNotifications.pager.totalCount"
+                                            items-per-page="vmNotifications.pager.pageSize"
+                                            max-size="vmNotifications.pager.maxSize"
+                                            boundary-links="true"
+                                            rotate="false"
+                                            class="pagination-sm"
+                                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                                            ng-change="vmNotifications.pageChanged()"></uib-pagination>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="items-per-page">
+                            <span class="title">Messages per Page:</span>
+                            <combo placeholder="Category"
+                                   no-search="true"
+                                   model="vmNotifications.pager.pageSize"
+                                   items="vmNotifications.pageSizeList"></combo>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

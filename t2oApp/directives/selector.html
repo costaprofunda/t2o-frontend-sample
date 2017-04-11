@@ -1,0 +1,13 @@
+<div class="selector-content">
+    <div class="selector" ng-class="{'has-error': !!errors.length, 'disabled': !!disabled}">
+        <span ng-repeat="item in items"
+              ng-if="item.show"
+              class="item"
+              ng-cloak
+              ng-class="{'selected': (model === item) || (model === item.id)}"
+              ng-click="onClick(item)">
+            {{item | filterProxy: filterName}}
+        </span>
+    </div>
+    <strong ng-if="required" class="required">*</strong>
+</div>

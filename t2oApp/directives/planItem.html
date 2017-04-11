@@ -1,0 +1,318 @@
+<div class="plan-item">
+
+    <div id="{{'item-head-' + group.question.id}}" class="head"
+         ng-class="{'clickable': isUserSharePlan(), 'expanded': group.expanded || !isUserSharePlan()}" ng-click="onExpand()">
+        <div class="row visible-xs">
+            <div class="col-xs-12">
+                <div class="chat-icon-area">
+                    <div class="chat-icon">
+                        <div class="circle" user-avatar model="group.question.author" large="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="chat-icon hidden-xs">
+                    <div class="circle" user-avatar model="group.question.author" large="true"></div>
+                </div>
+                <div class="question">
+                    <div class="col-title">Question</div>
+                    <div class="col-value question-title" ng-bind="group.question.title"></div>
+                    <div class="leading-answer">
+                        <span ng-show="!group.items.length && !group.scrap">&nbsp;</span>
+                        <span ng-show="!!group.items[0] && !isScrapFavor()">
+                            <span ng-if="!!group.items[0].provider" ng-bind="group.items[0].provider  + ' - '"></span>
+                            <span ng-bind="group.items[0].name"></span>
+                        </span>
+                        <span ng-show="isScrapFavor()">Scrap Question</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <div class="price" ng-show="!!group.items.length && !isScrapFavor()"
+                     ng-if="group.question.planItemGroupTypeId !== 'Policy'">
+                    <div class="col-title">
+                        <span ng-show="!group.items[0].reoccurringPrice">Cost</span>
+                        <span ng-show="group.items[0].reoccurringPrice">Yearly Recurring</span>
+                    </div>
+                    <div class="col-value" ng-show="!unsharedPrice" ng-bind="getSharedPrice(group.items[0].price) | currency"></div>
+                    <div class="col-value" ng-show="unsharedPrice" ng-bind="group.items[0].price | currency"></div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="proposals">
+                    <div class="col-title">Proposals</div>
+                    <div class="col-value">
+                        <span ng-bind="group.items.length"></span>
+                        <span ng-switch="group.items.length">
+                            <span ng-switch-when="1">Proposal</span>
+                            <span ng-switch-default>Proposals</span>
+                        </span>
+                    </div>
+                    <div class="propose-front" ng-show="!disableVoting && isUserSharePlan() && !group.items.length">
+                        <span ng-click="addAlternative()">Add answer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="status" ng-show="!!group.items.length">
+                    <div class="col-title">Status</div>
+                    <div class="col-value">
+                        <span ng-show="!group.accepted">
+                            <img ng-src="resources/images/check-sm-grey.svg">
+                            <span ng-show="!isTied()">Pending</span>
+                            <span ng-show="isTied()">Tie</span>
+                        </span>
+                        <span ng-show="group.accepted"><img ng-src="resources/images/check-sm.svg">Passed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="more-info">
+                        <span class="trigger" ng-show="isUserSharePlan() && !group.expanded">
+                            More Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="{{'item-content-' + group.question.id}}" class="content" ng-show="group.expanded">
+
+        <div class="answer" ng-repeat="item in group.items track by $index">
+            <div class="row">
+                <div class="col-md-1 col-sm-1 col-xs-2">
+                    <div class="avatar">
+                        <div user-avatar model="item" class="clickable"
+                             ui-sref="home.userProfile({id: item.userId})"></div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-10">
+                    <div class="proposal">
+                        <div class="text" ng-bind="item.name"></div>
+                        <div class="shares-to-pass">
+                            <span shares-to-pass
+                                  participants="participants"
+                                  votes="item.votes"
+                                  number-to-agree="{{numberToAgree}}"
+                                  total-shares="{{totalShares}}"></span>
+                        </div>
+                        <div ng-if="(user.id === item.userId) && (!item.votes.length || ((item.votes.length === 1) && !item.votes.indexOf(user.id)))"
+                             class="edit" ng-click="editItemDir(item)">Edit</div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                    <div class="price" ng-if="group.question.planItemGroupTypeId !== 'Policy'">
+                        <div class="col-title">
+                            <span ng-show="!item.reoccurringPrice">Cost</span>
+                            <span ng-show="item.reoccurringPrice">Yearly Recurring</span>
+                        </div>
+                        <div class="col-value" ng-show="!unsharedPrice" ng-bind="getSharedPrice(item.price) | currency"></div>
+                        <div class="col-value" ng-show="unsharedPrice" ng-bind="item.price | currency"></div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="supporters">
+                        <div class="col-title">Supporters</div>
+                        <div class="col-value">
+                            <span ng-bind="item.votes.length"></span> Supporters
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="support">
+                        <div class="no-support" ng-show="!disableVoting && (item.votes.indexOf(user.id) === -1)">
+                            <button ng-click="toggleVote(item, false)" class="btn">Support</button>
+                        </div>
+                        <div class="supported" ng-show="item.votes.indexOf(user.id) !== -1">
+                            <div class="col-title">&nbsp;</div>
+                            <div class="col-value">
+                                <img ng-src="resources/images/check-sm.svg">Supported
+                            </div>
+                            <div class="cancel-support" ng-show="!disableVoting" ng-click="toggleVote(item, false)">Unsupport</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="{{'item-info-' + group.question.id + '-' + $index}}" class="details" ng-show="item.infoExpanded">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="full-info">
+                            <div class="price"
+                                 ng-show="!!item.price || ((group.question.planItemGroupTypeId !== 'Policy') && (item.price === 0))">
+                                <div class="col-title">
+                                    <span ng-show="!item.reoccurringPrice">All Inclusive Price</span>
+                                    <span ng-show="item.reoccurringPrice">Yearly All Inclusive Price</span>
+                                </div>
+                                <div class="col-value" ng-bind="item.price | currency"></div>
+                            </div>
+                            <div class="url"
+                                 ng-show="!!item.url">
+                                <div class="col-title">Url</div>
+                                <div class="col-value" ng-bind-html="item.url | linky:'_blank'"></div>
+                            </div>
+                            <div class="provider"
+                                 ng-show="!!item.provider">
+                                <div class="col-title">Provider</div>
+                                <div class="col-value" ng-bind="item.provider"></div>
+                            </div>
+                            <div class="contact-name"
+                                 ng-show="!!item.contactName">
+                                <div class="col-title">Contact Name</div>
+                                <div class="col-value" ng-bind="item.contactName"></div>
+                            </div>
+                            <div class="phone"
+                                 ng-show="!!item.phone">
+                                <div class="col-title">Phone</div>
+                                <div class="col-value" ng-bind="item.phone"></div>
+                            </div>
+                            <div class="email"
+                                 ng-show="!!item.email">
+                                <div class="col-title">Email</div>
+                                <div class="col-value" ng-bind="item.email"></div>
+                            </div>
+                            <div class="description"
+                                 ng-show="!!item.description">
+                                <div class="col-title">
+                                    <span ng-show="group.question.planItemGroupTypeId !== 'Policy'">Description</span>
+                                    <span ng-show="group.question.planItemGroupTypeId === 'Policy'">Explanation</span>
+                                </div>
+                                <div class="col-value" ng-bind="item.description"></div>
+                            </div>
+                            <div class="good-deal"
+                                 ng-show="!!item.goodDeal">
+                                <div class="col-title">Why is this a good deal?</div>
+                                <div class="col-value" ng-bind="item.goodDeal"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row" ng-if="areDetailsFilled(item)">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="more-info">
+                        <span class="trigger" ng-click="showInfo(item)">
+                            <span ng-show="!item.infoExpanded">More Info</span>
+                            <span ng-show="item.infoExpanded">Less Info</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer scrap" ng-if="!!group.scrap">
+            <div class="row">
+                <div class="col-md-1 col-sm-1 col-xs-2">
+                    <div class="avatar">
+                        <div user-avatar model="group.scrap" class="clickable"
+                             ui-sref="home.userProfile({id: group.scrap.userId})"></div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-10">
+                    <div class="proposal">
+                        <div class="text">Scrap Question</div>
+                        <div class="shares-to-pass">
+                            <span shares-to-pass
+                                  participants="participants"
+                                  votes="group.scrap.votes"
+                                  number-to-agree="{{numberToAgree}}"
+                                  total-shares="{{totalShares}}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs">&nbsp;</div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="supporters">
+                        <div class="col-title">Supporters</div>
+                        <div class="col-value">
+                            <span ng-bind="group.scrap.votes.length"></span>
+                            <span ng-switch="group.scrap.votes.length">
+                                <span ng-switch-when="1">Supporter</span>
+                                <span ng-switch-default>Supporters</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="support">
+                        <div class="no-support" ng-show="!disableVoting && (group.scrap.votes.indexOf(user.id) === -1)">
+                            <button ng-click="toggleVote(group.scrap, true)" class="btn">Support</button>
+                        </div>
+                        <div class="supported" ng-show="group.scrap.votes.indexOf(user.id) !== -1">
+                            <div class="col-title">&nbsp;</div>
+                            <div class="col-value">
+                                <img ng-src="resources/images/check-sm.svg">Supported
+                            </div>
+                            <div class="cancel-support" ng-show="!disableVoting" ng-click="toggleVote(group.scrap, true)">Unsupport</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="{{'scrap-info-' + group.question.id}}" class="details" ng-show="group.scrap.infoExpanded">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="reason">
+                            <div class="col-title">Why scrap this question?</div>
+                            <div class="col-value" ng-bind="group.scrap.reason"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="more-info">
+                        <span class="trigger" ng-click="showScrapInfo()">
+                            <span ng-show="!group.scrap.infoExpanded">More Info</span>
+                            <span ng-show="group.scrap.infoExpanded">Less Info</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions" ng-hide="(!group.items.length && !!group.scrap) || disableVoting">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div ng-show="!!group.items.length">
+                        <button class="btn" ng-click="addAlternative()">Propose Alternate Solution</button>
+                    </div>
+                    <div class="scrap" ng-if="!group.scrap && !group.question.vital" ng-click="addRejection()">
+                        Propose to scrap this question
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="discussion">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="subheader">Discussion</div>
+                    <chat model="group" user="user"
+                          view-id="{{group.question.id}}"
+                          obj-id="{{group.question.objId}}"
+                          plan-id="{{planId}}"></chat>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="less-info">
+                        <span class="trigger" ng-click="onExpand()">
+                            Less Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

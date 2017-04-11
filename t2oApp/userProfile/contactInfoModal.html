@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <h4 class="modal-title">Contact Information</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmContactInfo.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal">
+    <div class="plan-info">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title">First Name</div>
+                    <input class="form-control"
+                           id="contact-info-first-name"
+                           type="text"
+                           ng-model="vmContactInfo.info.firstName">
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title">Last Name</div>
+                    <input class="form-control"
+                           id="contact-info-last-name"
+                           type="text"
+                           ng-model="vmContactInfo.info.lastName">
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title">Phone</div>
+                    <input class="form-control"
+                           id="contact-info-phone"
+                           type="text"
+                           ng-model="vmContactInfo.info.phone">
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content" ng-class="{'has-error': !!vmContactInfo.errors.email.length}">
+                    <div class="col-title">Email</div>
+                    <input class="form-control"
+                           id="contact-info-email"
+                           type="email"
+                           ng-model="vmContactInfo.info.email">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <span class="cancel" ng-click="vmContactInfo.cancel()">Cancel</span>
+        <button class="btn" ng-click="vmContactInfo.save()">Save</button>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="reply-message-box">
+    <div class="chat-reply">
+        <div class="row">
+            <div class="col-md-1 col-sm-1 hidden-xs">&nbsp;</div>
+            <div class="col-md-11 col-sm-11 col-xs-12 text-col">
+                <div user-avatar model="user" class="clickable hidden-xs" ui-sref="home.userProfile({id: user.id})"></div>
+                <textarea msd-elastic placeholder="Add a comment..." ng-model="model"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="actions">
+                    <span class="cancel-post" ng-click="onCancelReply()"
+                          ng-show="!!model">Cancel</span>
+                    <button class="btn" ng-click="postReply()" ng-disabled="!model">
+                        <span ng-bind="caption"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

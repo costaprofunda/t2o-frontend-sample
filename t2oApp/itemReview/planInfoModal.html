@@ -1,0 +1,119 @@
+<div class="modal-header">
+    <h4 class="modal-title">Plan Info</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmPlanInfo.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal">
+    <div class="plan-info">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="edit" ng-if="vmPlanInfo.edit" ng-click="vmPlanInfo.infoEditing = true">Edit</div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title">Product name</div>
+                    <div class="col-value" ng-hide="vmPlanInfo.infoEditing" ng-bind="vmPlanInfo.info.title"></div>
+                    <input class="form-control"
+                           id="plan-info-title"
+                           type="text"
+                           ng-model="vmPlanInfo.newInfo.title"
+                           ng-show="vmPlanInfo.infoEditing">
+                </div>
+            </div>
+
+            <div class="col-md-12" ng-show="vmPlanInfo.infoEditing">
+                <div class="plan-info-field-content">
+                    <div class="col-title">Brand name</div>
+                    <input class="form-control"
+                           id="plan-info-brand"
+                           type="text"
+                           ng-model="vmPlanInfo.newInfo.brandName">
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title" ng-show="vmPlanInfo.infoEditing || !!vmPlanInfo.info.description">
+                        Description
+                    </div>
+                    <div class="col-value" ng-hide="vmPlanInfo.infoEditing || !vmPlanInfo.info.description"
+                         ng-bind="vmPlanInfo.info.description"></div>
+                    <textarea class="form-control"
+                              id="plan-info-description"
+                              ng-model="vmPlanInfo.newInfo.description"
+                              rows="4"
+                              ng-show="vmPlanInfo.infoEditing"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title" ng-show="vmPlanInfo.infoEditing || !!vmPlanInfo.info.features">Features</div>
+                    <div class="col-value"
+                         ng-hide="vmPlanInfo.infoEditing || !vmPlanInfo.info.features"
+                         ng-bind="vmPlanInfo.info.features"></div>
+                    <textarea class="form-control"
+                              id="plan-info-features"
+                              ng-model="vmPlanInfo.newInfo.features"
+                              rows="4"
+                              ng-show="vmPlanInfo.infoEditing"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title" ng-show="vmPlanInfo.infoEditing || !!vmPlanInfo.info.url">URL</div>
+                    <div class="col-value" ng-hide="vmPlanInfo.infoEditing || !vmPlanInfo.info.url"
+                         ng-bind-html="vmPlanInfo.info.url | linky:'_blank'"></div>
+                    <textarea class="form-control"
+                              id="plan-info-url"
+                              ng-model="vmPlanInfo.newInfo.url"
+                              rows="4"
+                              ng-show="vmPlanInfo.infoEditing"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content">
+                    <div class="col-title" ng-show="vmPlanInfo.infoEditing || !!vmPlanInfo.info.message">Message</div>
+                    <div class="col-value"
+                         ng-hide="vmPlanInfo.infoEditing || !vmPlanInfo.info.message"
+                         ng-bind="vmPlanInfo.info.message"></div>
+                    <textarea class="form-control"
+                              id="plan-info-message"
+                              ng-model="vmPlanInfo.newInfo.message"
+                              rows="4"
+                              ng-show="vmPlanInfo.infoEditing"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="plan-info-field-content no-overflow">
+                    <div class="col-title">Category</div>
+                    <div ng-hide="vmPlanInfo.infoEditing" class="col-value category-info">
+                        <span ng-bind="vmPlanInfo.categoryName.parent"></span>
+                        <i class="fa fa-caret-right"></i>
+                        <span class="active" ng-bind="vmPlanInfo.categoryName.child"></span>
+                    </div>
+                    <combo placeholder="Category"
+                           ng-show="vmPlanInfo.infoEditing"
+                           model="vmPlanInfo.newInfo.categoryId"
+                           items="vmPlanInfo.categoryList"
+                           filter-name="name"
+                           select-id="true"></combo>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <span class="cancel" ng-show="vmPlanInfo.infoEditing" ng-click="vmPlanInfo.exitPlanInfoEdit()">Cancel</span>
+        <button class="btn" ng-show="vmPlanInfo.infoEditing" ng-click="vmPlanInfo.save()">Save</button>
+        <button class="btn" ng-show="!vmPlanInfo.infoEditing" ng-click="vmPlanInfo.cancel()">Close</button>
+    </div>
+</div>

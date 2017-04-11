@@ -1,0 +1,10 @@
+<div class="message-box">
+    <textarea placeholder="{{placeholder}}" rows="3" ng-model="model"></textarea>
+    <div class="actions">
+        <span ng-if="cancel" href="javascript:;" class="cancel" ng-click="cancel()">Cancel</span>
+        <button class="btn" ng-click="post()" ng-disabled="disabled()">
+            <span ng-show="!edit">Post</span>
+            <span ng-show="edit">Update</span>
+        </button>
+    </div>
+</div>

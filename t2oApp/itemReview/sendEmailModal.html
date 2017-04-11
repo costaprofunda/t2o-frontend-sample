@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title">Send Invitation Email</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmSendEmail.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal">
+    <tags-input ng-model="vmSendEmail.recipients"
+                ng-class="{'has-errors':!!vmSendEmail.errors.recipients.length}"
+                placeholder="Email Adress(es)"
+                min-length="1"
+                allowed-tags-pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$">
+    </tags-input>
+    <div class="plan-image" ng-style="{'background-image':'url(' + vmSendEmail.planImageUrl + ')'}"></div>
+    <div class="new-plan__step-content">
+        <div class="form-group">
+            <plan-field-input required="true"
+                              errors="vmSendEmail.errors.subject"
+                              tip="Enter your subject">
+                <input placeholder="Subject"
+                       class="form-control"
+                       ng-model="vmSendEmail.subject">
+            </plan-field-input>
+            <plan-field-input required="true"
+                              errors="vmSendEmail.errors.message"
+                              tip="Enter your message">
+                <textarea placeholder="Message"
+                          class="form-control"
+                          rows="4"
+                          ng-model="vmSendEmail.message">
+                </textarea>
+            </plan-field-input>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions"><button class="btn" ng-click="vmSendEmail.send()">Send</button></div>
+</div>

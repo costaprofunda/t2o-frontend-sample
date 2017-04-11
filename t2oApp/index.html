@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
+    <title>team2own</title>
+    <link rel="shortcut icon" href="resources/images/favicon.png" type="image/x-icon"/>
+    <!--<base href="">-->
+    <!--CSS-->
+    <!-- build:css resources/css/t2o.min.css -->
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../bower_components/angular-growl/build/angular-growl.min.css"/>
+    <link rel="stylesheet" href="../bower_components/chosen/chosen.min.css"/>
+    <link rel="stylesheet" href="../bower_components/cropper/dist/cropper.min.css"/>
+    <link rel="stylesheet" href="../bower_components/ng-tags-input/ng-tags-input.min.css"/>
+    <link rel="stylesheet" href="../bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css"/>
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="../bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="resources/css/oldie.css"/>
+    <link rel="stylesheet" href="resources/css/style.css"/>
+    <!-- endbuild -->
+    <!-- build:js resources/js/t2o.min.js -->
+    <!--Bower-->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="../bower_components/lodash/lodash.min.js"></script>
+    <script src="../bower_components/restangular/dist/restangular.min.js"></script>
+    <script src="../bower_components/angular-growl/build/angular-growl.min.js"></script>
+    <script src="../bower_components/chosen/chosen.jquery.min.js"></script>
+    <script src="../bower_components/angular-chosen-localytics/chosen.js"></script>
+    <script src="../bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    <script src="../bower_components/cropper/dist/cropper.min.js"></script>
+    <script src="../bower_components/angular-websocket/angular-websocket.min.js"></script>
+    <script src="../bower_components/jquery-scrollintoview/jquery-scrollintoview.js"></script>
+    <script src="../bower_components/ngScrollTo/ng-scrollto.js"></script>
+    <script src="../bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+    <script src="../bower_components/angular-facebook/lib/angular-facebook.js"></script>
+    <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="../bower_components/moment/min/moment.min.js"></script>
+    <script src="../bower_components/canvas-toBlob.js/canvas-toBlob.js"></script>
+    <script src="../bower_components/sprintf/dist/angular-sprintf.min.js"></script>
+    <script src="../bower_components/sprintf/dist/sprintf.min.js"></script>
+    <script src="../bower_components/angular-elastic/elastic.js"></script>
+    <script src="../bower_components/angular-bind-html-compile/angular-bind-html-compile.js"></script>
+    <script src="../bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="../bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+    <!--App-->
+    <script src="00-appModule.js"></script>
+    <script src="appConfig.js"></script>
+    <script src="appRun.js"></script>
+    <!--Constants-->
+    <script src="core/constants/env.js"></script>
+    <script src="core/constants/params.js"></script>
+    <script src="core/constants/confirmationModalTypes.js"></script>
+    <script src="core/constants/events.js"></script>
+    <script src="core/constants/states.js"></script>
+    <script src="core/constants/messages.js"></script>
+    <script src="core/constants/sizes.js"></script>
+    <!--Directives-->
+    <script src="directives/currencyInputDirective.js"></script>
+    <script src="directives/planFieldInputDirective.js"></script>
+    <script src="directives/comboDirective.js"></script>
+    <script src="directives/dateDirective.js"></script>
+    <script src="directives/autoFocusDirective.js"></script>
+    <script src="directives/voteResultPaneDirective.js"></script>
+    <script src="directives/planItemDirective.js"></script>
+    <script src="directives/alternativeDirective.js"></script>
+    <script src="directives/shareRequestDirective.js"></script>
+    <script src="directives/selectorDirective.js"></script>
+    <script src="directives/anchorDirective.js"></script>
+    <script src="directives/planCandidateDirective.js"></script>
+    <script src="directives/twoAltVoteDirective.js"></script>
+    <script src="directives/messageBoxDirective.js"></script>
+    <script src="directives/confirmDirective.js"></script>
+    <script src="directives/chatDirective.js"></script>
+    <script src="directives/sharesToPassDirective.js"></script>
+    <script src="directives/planMemberDirective.js"></script>
+    <script src="directives/replyMessageBoxDirective.js"></script>
+    <script src="directives/calDirective.js"></script>
+    <script src="directives/singleVotingDirective.js"></script>
+    <script src="directives/userAvatarDirective.js"></script>
+    <!--Filters-->
+    <script src="filters/customCurrencyFilter.js"></script>
+    <script src="filters/filterProxy.js"></script>
+    <script src="filters/nameFilter.js"></script>
+    <script src="filters/productInfoFilter.js"></script>
+    <script src="filters/propertyFilter.js"></script>
+    <script src="filters/userAvatarFilter.js"></script>
+    <script src="filters/titleFilter.js"></script>
+    <script src="filters/yesNoFilter.js"></script>
+    <script src="filters/unPostedQuestionListFilter.js"></script>
+    <script src="filters/planItemGroupOrderFilter.js"></script>
+    <script src="filters/planCandidateItemsOrderFilter.js"></script>
+    <!--Controllers-->
+    <script src="core/mainController.js"></script>
+    <script src="security/loginController.js"></script>
+    <script src="security/loginModalInstanceController.js"></script>
+    <script src="security/signUpController.js"></script>
+    <script src="security/signUpModalInstanceController.js"></script>
+    <script src="items/itemListController.js"></script>
+    <script src="newItem/newItemController.js"></script>
+    <script src="itemReview/itemReviewController.js"></script>
+    <script src="itemReview/shareRequestModalInstanceController.js"></script>
+    <script src="core/confirmationModalInstanceController.js"></script>
+    <script src="itemReview/planItemGroupModalInstanceController.js"></script>
+    <script src="itemReview/scrapModalInstanceController.js"></script>
+    <script src="itemReview/alternativeModalInstanceController.js"></script>
+    <script src="itemReview/sendEmailModalInstanceController.js"></script>
+    <script src="itemReview/candidacyRequestModalInstanceController.js"></script>
+    <script src="itemReview/itemsSelectModalInstanceController.js"></script>
+    <script src="userProfile/userProfileController.js"></script>
+    <script src="userProfile/changePasswordModalInstanceController.js"></script>
+    <script src="itemReview/planInfoModalInstanceController.js"></script>
+    <script src="core/planImageModalInstanceController.js"></script>
+    <script src="core/locationModalInstanceController.js"></script>
+    <script src="notifications/notificationsController.js"></script>
+    <script src="userProfile/contactInfoModalInstanceController.js"></script>
+    <!--Services-->
+    <script src="core/utils.js"></script>
+    <script src="core/categoryService.js"></script>
+    <script src="security/securityService.js"></script>
+    <script src="items/itemListService.js"></script>
+    <script src="newItem/newItemService.js"></script>
+    <script src="itemReview/itemReviewService.js"></script>
+    <script src="core/returnLocationStorageService.js"></script>
+    <script src="core/httpInterceptor.js"></script>
+    <script src="core/webSocketService.js"></script>
+    <script src="itemReview/emailService.js"></script>
+    <script src="itemReview/socialSharingService.js"></script>
+    <script src="itemReview/paymentControlService.js"></script>
+    <script src="userProfile/userProfileService.js"></script>
+    <script src="itemReview/chatService.js"></script>
+    <script src="core/imageService.js"></script>
+    <script src="core/locationService.js"></script>
+    <script src="core/userNotificationService.js"></script>
+    <!-- endbuild -->
+</head>
+<body ng-app="t2oFrontendApp" ng-cloak class="ng-cloak">
+<div growl></div>
+<section ui-view></section>
+</body>
+</html>

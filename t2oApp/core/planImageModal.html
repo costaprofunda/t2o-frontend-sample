@@ -1,0 +1,64 @@
+<div class="modal-header">
+    <h4 class="modal-title">Plan Image</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmPlanImage.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal new-plan__step-content">
+    <div class="form-group" ng-show="!vmPlanImage.uploadedImageUrl">
+        <plan-field-input tip="Upload your image or provide a link" class="combined">
+            <label class="input-group-addon plan-input-group-addon">
+                <i class="fa fa-camera"></i>
+                <input type="file" class="position-left-hidden" accept="image/*" nv-file-select uploader="vmPlanImage.uploader"/>
+            </label>
+            <input placeholder="Picture or URL" class="form-control" ng-model="vmPlanImage.pictureUrl">
+        </plan-field-input>
+    </div>
+    <p class="error-div" ng-show="!!vmPlanImage.invalidPictureMessage">
+        <i class="fa fa-exclamation-triangle"></i>
+        <span ng-bind="vmPlanImage.invalidPictureMessage"></span>
+    </p>
+
+    <div ng-if="vmPlanImage.uploadedImageUrl" class="plan-image-area">
+        <i class="fa fa-times-circle close-image" ng-click="vmPlanImage.onDeleteImage()"></i>
+
+        <p>
+            <img id="plan-image" ng-if="vmPlanImage.uploadedImageUrl" ng-src="{{vmPlanImage.uploadedImageUrl}}">
+        </p>
+
+        <div class="btn-group">
+            <button type="button" class="btn" title="Zoom In" ng-click="vmPlanImage.zoomImage(0.1)">
+                <i class="fa fa-search-plus"></i>
+            </button>
+            <button type="button" class="btn" title="Zoom Out" ng-click="vmPlanImage.zoomImage(-0.1)">
+                <i class="fa fa-search-minus"></i>
+            </button>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn" title="Move Left" ng-click="vmPlanImage.moveImage(-10, 0)">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <button type="button" class="btn" title="Move Right" ng-click="vmPlanImage.moveImage(10, 0)">
+                <i class="fa fa-arrow-right"></i>
+            </button>
+            <button type="button" class="btn" title="Move Up" ng-click="vmPlanImage.moveImage(0, -10)">
+                <i class="fa fa-arrow-up"></i>
+            </button>
+            <button type="button" class="btn" title="Move Down" ng-click="vmPlanImage.moveImage(0, 10)">
+                <i class="fa fa-arrow-down"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <span class="cancel hidden-xs" ng-click="vmPlanImage.cancel()">Cancel</span>
+        <button ng-if="!!vmPlanImage.edit" class="btn" ng-click="vmPlanImage.remove()">
+            Remove Image
+        </button>
+        <button ng-if="vmPlanImage.uploadedImageUrl" class="btn" ng-click="vmPlanImage.crop()">
+            Crop and Save
+        </button>
+    </div>
+</div>

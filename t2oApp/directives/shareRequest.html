@@ -1,0 +1,125 @@
+<div class="plan-item share-request">
+
+    <div id="{{'share-request-head-' + request.userId}}" class="head" ng-click="onExpand()"
+         ng-class="{'clickable': isUserSharePlan(), 'expanded': request.expanded || !isUserSharePlan()}">
+        <div class="row visible-xs">
+            <div class="col-xs-12">
+                <div class="chat-icon-area">
+                    <div class="chat-icon">
+                        <div class="circle" user-avatar model="request" large="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-5 col-xs-12">
+                <div ng-show="!!request.distance" class="distance hidden-xs">
+                    <span ng-bind="request.distance"></span> mile radius from plan
+                </div>
+                <div class="chat-icon hidden-xs">
+                    <div class="circle" user-avatar model="request" large="true"></div>
+                </div>
+                <div class="question">
+                    <div class="col-title" ng-bind="isUserSharePlan(request.userId) ? 'Increase stake' : 'Join request'"></div>
+                    <div class="col-value question-title" ng-bind="request.firstName + ' ' + request.lastName"></div>
+                    <div class="shares-to-pass">
+                        <span shares-to-pass
+                              participants="participants"
+                              votes="request.votes"
+                              number-to-agree="{{numberToAgree}}"
+                              total-shares="{{totalShares}}"></span>
+                        <span ng-show="!!request.distance" class="distance-info visible-xs-inline">
+                            <span ng-bind="request.distance"></span> mile radius from plan
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-12">
+                <div class="shares-requested">
+                    <div class="col-title">Shares Requested</div>
+                    <div class="col-value">
+                        <span ng-bind="request.shares"></span>
+                        <span ng-switch="request.shares">
+                            <span ng-switch-when="1">Share</span>
+                            <span ng-switch-default>Shares</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="proposals">
+                    <div class="col-title">Supporters</div>
+                    <div class="col-value">
+                        <span ng-bind="request.votes.length"></span>
+                        <span ng-switch="request.votes.length">
+                            <span ng-switch-when="1">Supporter</span>
+                            <span ng-switch-default>Supporters</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="support" ng-show="isUserSharePlan()">
+                    <div class="no-support" ng-show="request.votes.indexOf(user.id) === -1">
+                        <button ng-click="toggleVote(request); $event.stopPropagation()" class="btn">Support</button>
+                    </div>
+                    <div class="supported" ng-show="request.votes.indexOf(user.id) >= 0">
+                        <div class="col-title">&nbsp;</div>
+                        <div class="col-value">
+                            <img ng-src="resources/images/check-sm.svg">Supported
+                        </div>
+                        <div class="cancel-support" ng-click="toggleVote(request); $event.stopPropagation()">Unsupport</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="more-info">
+                        <span class="trigger" ng-show="isUserSharePlan() && !request.expanded">
+                            More Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="{{'share-request-content-' + request.userId}}" class="content" ng-show="request.expanded">
+
+        <div class="additional-info" ng-show="!!request.message">
+            <div class="message">
+                <div class="col-title">Messsage</div>
+                <div class="col-value">
+                    <span ng-bind="request.message"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="discussion">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="subheader">Discussion</div>
+                    <chat model="request" user="user"
+                          view-id="{{request.userId}}"
+                          obj-id="{{request.objId}}"
+                          plan-id="{{planId}}"></chat>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="less-info">
+                        <span class="trigger" ng-click="onExpand()">
+                            Less Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

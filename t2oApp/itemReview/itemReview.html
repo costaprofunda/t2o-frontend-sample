@@ -1,0 +1,582 @@
+<div class="plan-content" ng-class="{'closed': vmItemReview.plan.state === 'CLOSED', 'abandoned': vmItemReview.plan.state === 'ABANDONED'}">
+
+    <div class="subheader">
+        <div class="row">
+            <div class="col-md-10 col-sm-8 col-xs-8">
+                <div class="plan-title-and-category">
+                    <div class="plan-title" ng-bind="vmItemReview.plan.title"></div>
+                    <div class="plan-category">
+                        <span>Home</span>
+                        &nbsp;/&nbsp;
+                        <span ng-bind="vmItemReview.categoryName.parent"></span>
+                        &nbsp;/&nbsp;
+                        <span ng-bind="vmItemReview.categoryName.child"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <div class="price">
+                    <div class="price-value" ng-bind="vmItemReview.priceInfo.sharedTotalFirstYearCost | currency"></div>
+                    <div class="price-description">
+                        <span ng-show="!vmItemReview.isUserSharePlan()">per share</span>
+                        <span ng-show="!!vmItemReview.isUserSharePlan()"
+                              ng-bind="'for your ' + vmItemReview.ownedShares + ((vmItemReview.ownedShares === 1) ? ' share' : ' shares')"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="notifications-area"
+         ng-show="vmItemReview.isUserSharePlan() && !!vmItemReview.planNotificationMessages.length">
+        <div class="row">
+            <div class="col-md-12">
+                <uib-alert class="alert-notification" type="warning"
+                           ng-repeat="notificationMessage in vmItemReview.planNotificationMessages track by $index"
+                           ng-click="vmItemReview.onNotificationMessageClick(notificationMessage)">
+                    <div class="row">
+                        <div class="col-md-11 col-sm-11 col-xs-10">
+                            <span bind-html-compile="notificationMessage.message"></span>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-2">
+                            <img ng-src="resources/images/times-white.svg" alt="Close" class="close-image"
+                                 ng-click="vmItemReview.planNotificationMessages.splice($index, 1); $event.stopPropagation()">
+                        </div>
+                    </div>
+                </uib-alert>
+            </div>
+        </div>
+    </div>
+
+    <div class="showcase">
+        <div class="row">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <div class="plan-images">
+                    <div class="image-control control-left hidden-lg hidden-md"
+                         ng-show="vmItemReview.mainImageNumber !== 1">
+                        <div class="actions">
+                            <i class="fa fa-chevron-left" ng-click="vmItemReview.slideImage(true)"></i>
+                        </div>
+                    </div>
+                    <div class="plan-main-image" ng-cloak
+                         ng-style="{'background-image':'url(' + vmItemReview.planImageUrl + ')'}"></div>
+                    <div class="image-control control-right hidden-lg hidden-md"
+                         ng-show="vmItemReview.mainImageNumber !== vmItemReview.planImages.length">
+                        <div class="actions">
+                            <i class="fa fa-chevron-right" ng-click="vmItemReview.slideImage()"></i>
+                        </div>
+                    </div>
+                    <span class="edit hidden-lg hidden-md"
+                          ng-if="vmItemReview.isUserAbleToEditPlan()"
+                          ng-click="vmItemReview.onImageClick(null, true)">Edit</span>
+                    <div class="plan-add-image-container hidden-sm hidden-xs">
+                        <div class="plan-add-image"
+                             ng-class="{'image-filled': !!vmItemReview.planImages[0], 'image-blank': !vmItemReview.planImages[0] && !vmItemReview.isUserAbleToEditPlan()}"
+                             ng-click="vmItemReview.onImageClick(vmItemReview.planImages[0])">
+                            <div class="small-image" ng-if="!!vmItemReview.planImages[0]" ng-cloak
+                                 ng-style="{'background-image':'url(' + vmItemReview.planImages[0].url + ')'}"></div>
+                            <i ng-if="!vmItemReview.planImages[0] && vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-camera"></i>
+                            <i ng-if="!vmItemReview.planImages[0] && !vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-picture-o"></i>
+                            <span class="edit" ng-if="!!vmItemReview.planImages[0] && vmItemReview.isUserAbleToEditPlan()"
+                                  ng-click="$event.stopPropagation(); vmItemReview.onImageClick(vmItemReview.planImages[0], true)">Edit</span>
+                        </div>
+                        <div class="plan-add-image" 
+                             ng-class="{'image-filled': !!vmItemReview.planImages[1], 'image-blank': !vmItemReview.planImages[1] && !vmItemReview.isUserAbleToEditPlan()}"
+                             ng-click="vmItemReview.onImageClick(vmItemReview.planImages[1])">
+                            <div class="small-image" ng-if="!!vmItemReview.planImages[1]" ng-cloak
+                                 ng-style="{'background-image':'url(' + vmItemReview.planImages[1].url + ')'}"></div>
+                            <i ng-if="!vmItemReview.planImages[1] && vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-camera"></i>
+                            <i ng-if="!vmItemReview.planImages[1] && !vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-picture-o"></i>
+                            <span class="edit" ng-if="!!vmItemReview.planImages[1] && vmItemReview.isUserAbleToEditPlan()"
+                                  ng-click="$event.stopPropagation(); vmItemReview.onImageClick(vmItemReview.planImages[1], true)">Edit</span>
+                        </div>
+                        <div class="plan-add-image" 
+                             ng-class="{'image-filled': !!vmItemReview.planImages[2], 'image-blank': !vmItemReview.planImages[2] && !vmItemReview.isUserAbleToEditPlan()}"
+                             ng-click="vmItemReview.onImageClick(vmItemReview.planImages[2])">
+                            <div class="small-image" ng-if="!!vmItemReview.planImages[2]" ng-cloak
+                                 ng-style="{'background-image':'url(' + vmItemReview.planImages[2].url + ')'}"></div>
+                            <i ng-if="!vmItemReview.planImages[2] && vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-camera"></i>
+                            <i ng-if="!vmItemReview.planImages[2] && !vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-picture-o"></i>
+                            <span class="edit" ng-if="!!vmItemReview.planImages[2] && vmItemReview.isUserAbleToEditPlan()"
+                                  ng-click="$event.stopPropagation(); vmItemReview.onImageClick(vmItemReview.planImages[2], true)">Edit</span>
+                        </div>
+                        <div class="plan-add-image" 
+                             ng-class="{'image-filled': !!vmItemReview.planImages[3], 'image-blank': !vmItemReview.planImages[3] && !vmItemReview.isUserAbleToEditPlan()}"
+                             ng-click="vmItemReview.onImageClick(vmItemReview.planImages[3])">
+                            <div class="small-image" ng-if="!!vmItemReview.planImages[3]" ng-cloak
+                                 ng-style="{'background-image':'url(' + vmItemReview.planImages[3].url + ')'}"></div>
+                            <i ng-if="!vmItemReview.planImages[3] && vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-camera"></i>
+                            <i ng-if="!vmItemReview.planImages[3] && !vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-picture-o"></i>
+                            <span class="edit" ng-if="!!vmItemReview.planImages[3] && vmItemReview.isUserAbleToEditPlan()"
+                                  ng-click="$event.stopPropagation(); vmItemReview.onImageClick(vmItemReview.planImages[3], true)">Edit</span>
+                        </div>
+                        <div class="plan-add-image hidden-md" 
+                             ng-class="{'image-filled': !!vmItemReview.planImages[4], 'image-blank': !vmItemReview.planImages[4] && !vmItemReview.isUserAbleToEditPlan()}"
+                             ng-click="vmItemReview.onImageClick(vmItemReview.planImages[4])">
+                            <div class="small-image" ng-if="!!vmItemReview.planImages[4]" ng-cloak
+                                 ng-style="{'background-image':'url(' + vmItemReview.planImages[4].url + ')'}"></div>
+                            <i ng-if="!vmItemReview.planImages[4] && vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-camera"></i>
+                            <i ng-if="!vmItemReview.planImages[4] && !vmItemReview.isUserAbleToEditPlan()"
+                               class="fa fa-picture-o"></i>
+                            <span class="edit" ng-if="!!vmItemReview.planImages[4] && vmItemReview.isUserAbleToEditPlan()"
+                                  ng-click="$event.stopPropagation(); vmItemReview.onImageClick(vmItemReview.planImages[4], true)">Edit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <div class="plan-info">
+                    <div class="key-stats">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <div class="stat-icon">
+                                    <cal label="{{!vmItemReview.expired ? vmItemReview.daysToGo : (!vmItemReview.daysToPay ? '!' : vmItemReview.daysToPay)}}"></cal>
+                                </div>
+                                <div class="stat-info">
+                                    <span ng-show="!vmItemReview.expired"
+                                          uib-tooltip="Days till close vote"
+                                          tooltip-placement="bottom">
+                                        <span ng-bind="vmItemReview.daysToGo"></span>
+                                        <span ng-switch="vmItemReview.daysToGo">
+                                            <span ng-switch-when="1">Day Left</span>
+                                            <span ng-switch-default>Days Left</span>
+                                        </span>
+                                    </span>
+                                    <span ng-show="!!vmItemReview.daysToPay">
+                                        <span ng-bind="vmItemReview.daysToPay"></span> Days To Pay
+                                    </span>
+                                    <span ng-show="vmItemReview.expired && !vmItemReview.daysToPay"
+                                          ng-switch="vmItemReview.plan.state"
+                                          ng-cloak>
+                                        <span ng-switch-when="READY_TO_BUY">Ready To Buy</span>
+                                        <span ng-switch-when="CLOSED">Closed</span>
+                                        <span ng-switch-when="ABANDONED">Abandoned</span>
+                                        <span ng-switch-default>Finalizing</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <div class="stat-icon"><img ng-src="resources/images/lock.svg"></div>
+                                <div class="stat-info">
+                                    <span ng-bind="vmItemReview.openedShares"></span>
+                                    <span ng-switch="vmItemReview.openedShares">
+                                        <span ng-switch-when="1">Open Share</span>
+                                        <span ng-switch-default>Open Shares</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <!--<div class="stat-icon"><img ng-src="resources/images/basket.svg"></div>-->
+                                <!--<div class="stat-info">-->
+                                    <!--<span ng-bind="vmItemReview.priceInfo.unsharedTotalUpfrontCost | currency"></span> Total-->
+                                <!--</div>-->
+                                <div class="stat-icon"><img ng-src="resources/images/handshake-2.svg"></div>
+                                <div class="stat-info">
+                                    <span ng-bind="vmItemReview.neededAgreement"></span>% To Pass
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-area hidden-sm">
+                        <div class="title">Description</div>
+                        <div class="plan-description" ng-bind="vmItemReview.plan.description"></div>
+                        <div class="see-all-details" ng-click="vmItemReview.showPlanInfo()">See All Details</div>
+                    </div>
+                    <div class="actions">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-8">
+                                <div class="favorites invisible">
+                                    <i class="fa fa-star-o"></i> Add to favorites
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-4">
+                                <div class="socials" id="social-actions">
+                                    <span class="hidden-xs">Tell a friend: </span>
+                                    <span class="social-icon" ng-click="vmItemReview.publishToFacebook()">
+                                        <i class="fa fa-facebook"></i>
+                                    </span>
+                                    <span class="social-icon" ng-click="vmItemReview.onSendEmailClick()">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row visible-sm">
+            <div class="col-sm-12">
+                <div class="description-area bottom-description">
+                    <div class="title">Description</div>
+                    <div class="plan-description" ng-bind="vmItemReview.plan.description"></div>
+                    <div class="see-all-details" ng-click="vmItemReview.showPlanInfo()">See All Details</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="join-team">
+                    <div class="team-info">
+                        <button class="btn" ng-click="vmItemReview.onShareRequestClick()"
+                                ng-show="!!vmItemReview.userInfo && !vmItemReview.isUserSharePlan() && !vmItemReview.isUserSentShareRequest() && (vmItemReview.plan.state !== 'ABANDONED')">
+                            Join This Team
+                        </button>
+                        <span class="joined-info"
+                              ng-show="!!vmItemReview.userInfo && !vmItemReview.isUserSharePlan() && vmItemReview.isUserSentShareRequest()">
+                            You have sent request to join this team.
+                        </span>
+                        <span class="joined-info"
+                              ng-show="!!vmItemReview.userInfo && vmItemReview.isUserSharePlan()">
+                            <img ng-src="resources/images/check.svg">You have joined this team
+                        </span>
+                    </div>
+                    <div class="make-copy">
+                        <span ng-click="vmItemReview.copyPlan()"
+                              ng-show="!!vmItemReview.userInfo && !vmItemReview.isUserSharePlan()">
+                            Make a copy of this plan
+                        </span>
+                        <span ng-click="vmItemReview.exitPlan()"
+                              ng-show="!!vmItemReview.userInfo && vmItemReview.isUserSharePlan() && (vmItemReview.plan.state !== 'CLOSED')">
+                            Leave this team
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cost-members">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="cost">
+                    <div class="subsection-title">Cost Breakdown</div>
+                    <table class="price-info">
+                        <tr>
+                            <td class="title"><span class="control-span">Cost Type</span></td>
+                            <td class="price">
+                                <span ng-show="!vmItemReview.isUserSharePlan()">Per Share</span>
+                                <span ng-show="!!vmItemReview.isUserSharePlan()"
+                                      ng-bind="'Your ' + vmItemReview.ownedShares + ((vmItemReview.ownedShares === 1) ? ' Share' : ' Shares')"></span>
+                            </td>
+                            <td class="price"><span>Total Cost</span></td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span class="control-span">Total upfront cost</span></td>
+                            <td class="price">
+                                <span ng-bind="vmItemReview.priceInfo.sharedTotalUpfrontCost | currency"></span>
+                            </td>
+                            <td class="price">
+                                <span ng-bind="vmItemReview.priceInfo.unsharedTotalUpfrontCost | currency"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span class="control-span">Total recurring yearly</span></td>
+                            <td class="price">
+                                <span ng-bind="vmItemReview.priceInfo.sharedTotalRecurring | currency"></span>
+                            </td>
+                            <td class="price">
+                                <span ng-bind="vmItemReview.priceInfo.unsharedTotalRecurring | currency"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span class="control-span">Amount due to close</span></td>
+                            <td class="price">
+                                <span ng-bind="vmItemReview.priceInfo.sharedTotalFirstYearCost | currency"></span>
+                            </td>
+                            <td class="price">
+                                <span ng-bind="vmItemReview.priceInfo.unsharedTotalFirstYearCost | currency"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="subsection-title">Membership</div>
+                <div class="membership">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="members-count">
+                                <span ng-bind="vmItemReview.plan.shares.length"></span>
+                                <span ng-switch="vmItemReview.plan.shares.length">
+                                    <span ng-switch-when="1">Member</span>
+                                    <span ng-switch-default>Members</span>
+                                </span>
+                            </div>
+                            <div class="members">
+                                <div ng-repeat="member in vmItemReview.plan.shares track by $index"
+                                     user-avatar model="member" ui-sref="home.userProfile({id: member.userId})"
+                                     ng-if="$index < 5" class="clickable"
+                                     ng-style="{'z-index': $index, 'right': ($index*10 + ((vmItemReview.plan.shares.length<5)?((5-vmItemReview.plan.shares.length)*5):0)) + 'px'}"
+                                     uib-tooltip="{{member.firstName + ' ' + member.lastName + ' (shares: ' + member.shares + ')'}}"
+                                     tooltip-placement="bottom"></div>
+                            </div>
+                            <div class="more-members" ng-if="vmItemReview.plan.shares.length > 5"
+                                 ng-bind="'+ ' + (vmItemReview.plan.shares.length - 5) + ' more'"></div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="shares-total" ng-bind="vmItemReview.plan.totalShares + ' Shares'"></div>
+                            <div class="shares">
+                                <img ng-src="resources/images/unlocked.png">
+                                <span ng-bind="vmItemReview.openedShares"></span>
+                                <span ng-switch="vmItemReview.openedShares">
+                                    <span ng-switch-when="1">Available Share</span>
+                                    <span ng-switch-default>Available Shares</span>
+                                </span>
+                            </div>
+                            <div class="shares">
+                                <img ng-src="resources/images/locked.png">
+                                <span ng-bind="vmItemReview.joinedShares"></span>
+                                <span ng-switch="vmItemReview.joinedShares">
+                                    <span ng-switch-when="1">Filled Share</span>
+                                    <span ng-switch-default>Filled Shares</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment" id="payment-section"
+         ng-show="vmItemReview.isUserSharePlan() && vmItemReview.plan.state === 'BUYING'">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="subsection-header">
+                    <div class="subsection-title">Payment</div>
+                    <div class="additional-info">
+                        Payment is
+                        <span ng-bind="vmItemReview.paymentComplete.toFixed(0) + '%'"></span>
+                        Completed
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="payment-content">
+                    <div class="payment-pro-user" ng-repeat="participant in vmItemReview.plan.shares">
+                        <plan-member member="participant"
+                                     user="vmItemReview.userInfo"
+                                     paid="vmItemReview.isUserPaid(participant.userId)"
+                                     treasurer="(vmItemReview.treasurer.id === vmItemReview.userInfo.id)"
+                                     mark-as-paid="vmItemReview.markUserAsPaid(participant.userId)"></plan-member>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="voting">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="subsection-header">
+                    <div class="subsection-title">Voting</div>
+                    <div class="additional-info">
+                        <span ng-bind="vmItemReview.plan.itemGroups.length + 1"></span>
+                        <span ng-switch="vmItemReview.plan.itemGroups.length + 1">
+                            <span ng-switch-when="1">Vote</span>
+                            <span ng-switch-default>Votes</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-row">
+                    <div class="filter-area" uib-dropdown is-open="vmItemReview.itemFilter.expanded">
+                        <button class="btn" id="voting-filter-dropdown"
+                                ng-click="vmItemReview.onVotingFilterClick($event)">
+                            <span ng-bind="vmItemReview.itemFilter.selected.name"></span>
+                            <i ng-show="!vmItemReview.itemFilter.expanded" class="fa fa-caret-down"></i>
+                            <i ng-show="vmItemReview.itemFilter.expanded" class="fa fa-caret-up"></i>
+                        </button>
+                        <ul uib-dropdown-menu aria-labelledby="voting-filter-dropdown" id="voting-filter-dropdown-menu">
+                            <li ng-repeat="filterItem in vmItemReview.itemFilter.items track by $index">
+                                <a href="javascript:;"
+                                   ng-click="vmItemReview.itemFilter.selected = filterItem; vmItemReview.onVotingFilterClick($event)"
+                                   ng-class="{'selected': vmItemReview.itemFilter.selected.identity === filterItem.identity}"
+                                   ng-bind="filterItem.name"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="question"
+                     ng-if="!!vmItemReview.plan.readyToBuy"
+                     ng-hide="vmItemReview.isQuestionHidden(vmItemReview.plan.readyToBuy.accepted)">
+                    <single-voting title="Ready to buy?"
+                                   question="vmItemReview.plan.readyToBuy"
+                                   number-to-agree="{{vmItemReview.plan.numberToAgree}}"
+                                   total-shares="{{vmItemReview.plan.totalShares}}"
+                                   plan-id="{{vmItemReview.plan.id}}"
+                                   user="vmItemReview.userInfo"
+                                   chat="vmItemReview.showChat"
+                                   participants="vmItemReview.plan.shares"></single-voting>
+                </div>
+                <div class="question"
+                     ng-hide="vmItemReview.isQuestionHidden(vmItemReview.plan.treasurerRequests[0].accepted)">
+                    <plan-candidate position="Who will collect the money?"
+                                    candidates="vmItemReview.plan.treasurerRequests"
+                                    propose="vmItemReview.becomeATreasurer()"
+                                    number-to-agree="{{vmItemReview.plan.numberToAgree}}"
+                                    total-shares="{{vmItemReview.plan.totalShares}}"
+                                    plan-id="{{vmItemReview.plan.id}}"
+                                    user="vmItemReview.userInfo"
+                                    chat="vmItemReview.showChat"
+                                    disable-voting="(vmItemReview.plan.state !== 'PURCHASING')"
+                                    ready-to-buy="!!vmItemReview.plan.readyToBuy"
+                                    participants="vmItemReview.plan.shares"></plan-candidate>
+                </div>
+                <div class="question"
+                     ng-repeat="planItemGroup in vmItemReview.plan.itemGroups | planItemGroupOrder"
+                     ng-hide="vmItemReview.isQuestionHidden(planItemGroup.accepted)">
+                    <plan-item group="planItemGroup"
+                               number-to-agree="{{vmItemReview.plan.numberToAgree}}"
+                               total-shares="{{vmItemReview.plan.totalShares}}"
+                               plan-id="{{vmItemReview.plan.id}}"
+                               user="vmItemReview.userInfo"
+                               add-alternative="vmItemReview.saveOrUpdateItem(planItemGroup)"
+                               edit-item="vmItemReview.saveOrUpdateItem"
+                               add-rejection="vmItemReview.addRejection(planItemGroup)"
+                               unshared-price="vmItemReview.unsharedPriceForItems"
+                               disable-voting="(vmItemReview.plan.state !== 'PURCHASING')"
+                               chat="vmItemReview.showChat"
+                               ready-to-buy="!!vmItemReview.plan.readyToBuy"
+                               participants="vmItemReview.plan.shares"></plan-item>
+                </div>
+                <div class="question new-one"
+                     ng-show="(vmItemReview.plan.state === 'PURCHASING') && vmItemReview.isUserSharePlan()">
+                    <div class="plan-item" ng-click="vmItemReview.addNewPlanItemGroup()">
+                        <div class="head">
+                            <div class="row visible-xs">
+                                <div class="col-xs-12">
+                                    <div class="chat-icon-area">
+                                        <div class="chat-icon">
+                                            <div class="circle" user-avatar model="vmItemReview.userInfo" large="true"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <div class="chat-icon hidden-xs">
+                                        <div class="circle" user-avatar model="vmItemReview.userInfo" large="true"></div>
+                                    </div>
+                                    <div class="question">
+                                        <div class="col-title">&nbsp;</div>
+                                        <div class="col-value question-title">Add your own question to vote on</div>
+                                        <div class="leading-answer">&nbsp;</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-xs-12">
+                                    <div class="icon-area">
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="share-requests"
+         id="share-requests-section"
+         ng-show="(vmItemReview.isUserSharePlan() || vmItemReview.isUserSentShareRequest()) && (vmItemReview.plan.state === 'PURCHASING' || vmItemReview.plan.state === 'READY_TO_BUY')">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="subsection-header">
+                    <div class="subsection-title">Requesting Shares</div>
+                    <div class="additional-info">
+                        <div ng-show="!vmItemReview.plan.joinRequests.length && !vmItemReview.plan.increaseStakeRequests.length">
+                            <span>No Share Requests</span>
+                        </div>
+                        <div ng-show="!!vmItemReview.plan.joinRequests.length || !!vmItemReview.plan.increaseStakeRequests.length">
+                            <span ng-show="!!vmItemReview.plan.joinRequests.length">
+                                <span ng-bind="vmItemReview.plan.joinRequests.length"></span>
+                                <span> Join</span>
+                            </span>
+                            <span ng-show="!!vmItemReview.plan.joinRequests.length && !!vmItemReview.plan.increaseStakeRequests.length"> & </span>
+                            <span ng-show="!!vmItemReview.plan.increaseStakeRequests.length">
+                                <span ng-bind="vmItemReview.plan.increaseStakeRequests.length"></span>
+                                <span> Increase Stake</span>
+                            </span>
+                            <span ng-switch="(vmItemReview.plan.joinRequests.length + vmItemReview.plan.increaseStakeRequests.length)">
+                                    <span ng-switch-when="1"> Request</span>
+                                    <span ng-switch-default> Requests</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="question" ng-repeat="request in vmItemReview.plan.joinRequests">
+                    <share-request request="request"
+                                   number-to-agree="{{vmItemReview.plan.numberToAgree}}"
+                                   ng-show="vmItemReview.isUserSharePlan() || (vmItemReview.userInfo.id === request.userId)"
+                                   opened-shares="vmItemReview.openedShares"
+                                   total-shares="{{vmItemReview.plan.totalShares}}"
+                                   plan-id="{{vmItemReview.plan.id}}"
+                                   user="vmItemReview.userInfo"
+                                   chat="vmItemReview.showChat"
+                                   participants="vmItemReview.plan.shares"></share-request>
+                </div>
+                <div class="question" ng-repeat="request in vmItemReview.plan.increaseStakeRequests">
+                    <share-request request="request"
+                                   number-to-agree="{{vmItemReview.plan.numberToAgree}}"
+                                   opened-shares="vmItemReview.openedShares"
+                                   total-shares="{{vmItemReview.plan.totalShares}}"
+                                   plan-id="{{vmItemReview.plan.id}}"
+                                   user="vmItemReview.userInfo"
+                                   chat="vmItemReview.showChat"
+                                   participants="vmItemReview.plan.shares"></share-request>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="actions">
+                    <div class="increase-stake">
+                        <span ng-show="vmItemReview.isIncreasingStakeAvailable()"
+                              ng-click="vmItemReview.onShareRequestClick()">
+                            Increase your stake
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="socials">
+                    <span class="hidden-xs">Tell a friend: </span>
+                    <span class="social-icon" ng-click="vmItemReview.publishToFacebook()">
+                        <i class="fa fa-facebook"></i>
+                    </span>
+                    <span class="social-icon" ng-click="vmItemReview.onSendEmailClick()">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

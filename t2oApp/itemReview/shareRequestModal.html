@@ -1,0 +1,79 @@
+<div class="modal-header">
+    <h4 class="modal-title" ng-if="!vmShareRequest.userSharesPlan">Join the Plan</h4>
+    <h4 class="modal-title" ng-if="vmShareRequest.userSharesPlan">Increase Stake</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmShareRequest.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal">
+    <div class="text-center shares-info">
+        <div class="row">
+            <div class="col-md-12">
+                <span ng-bind="vmShareRequest.openedShares"></span>
+                <span ng-switch="vmShareRequest.openedShares">
+                    <span ng-switch-when="1">Open Share</span>
+                    <span ng-switch-default>Open Shares</span>
+                </span>
+                | <span ng-bind="vmShareRequest.totalShares"></span> Total
+            </div>
+        </div>
+    </div>
+    <div class="new-plan__step-content">
+        <div class="text-center">
+            <span ng-if="!vmShareRequest.userSharesPlan">How many shares do you want to have?</span>
+            <span ng-if="vmShareRequest.userSharesPlan">Enter the amount of increasing shares:</span>
+        </div>
+        <div class="form-group new-plan__number-of-shares-form-group">
+            <plan-field-input
+                    tip="Having more than one share will mean that you'll have to pay for those shares, but it also means your votes carry more weight and you would get more time with the item."
+                    tooltip-bottom="true"
+                    class="combined"
+                    required="true"
+                    errors="vmShareRequest.errors.shares">
+                <input class="form-control text-right"
+                       type="number"
+                       min="1"
+                       max="{{vmShareRequest.totalShares - 1}}"
+                       ng-model="vmShareRequest.request.shares">
+                    <span class="input-group-addon plan-input-group-addon input-group-addon-number-of-shares">
+                        /
+                        <span ng-bind="vmShareRequest.totalShares - 1"></span>
+                    </span>
+            </plan-field-input>
+        </div>
+        <div ng-show="vmShareRequest.request.shares > 1">
+            <div class="text-center">
+                <span ng-cloak>
+                    If fewer than {{vmShareRequest.request.shares}} are available, would you still want to
+                    {{(!vmShareRequest.userSharesPlan) ? 'join' : 'increase your stake'}}?
+                </span>
+            </div>
+            <div class="form-group new-plan__number-of-agree-form-group">
+                <plan-field-input
+                        tip="Sometimes the team will accept your request to join or increase your stake, but there aren't enough shares left. This question is asking if you still would want to do it even if you can't get the number of shares you requested.">
+                    <label class="form-control no-padding text-center">
+                        <span class="checkbox-replacement" ng-class="{'no': !vmShareRequest.request.lowerShares}">
+                            No
+                        </span>
+                        <span class="checkbox-replacement" ng-class="{'yes': vmShareRequest.request.lowerShares}">
+                            Yes
+                        </span>
+                        <input class="form-control position-left-hidden"
+                               type="checkbox"
+                               ng-model="vmShareRequest.request.lowerShares">
+                    </label>
+                </plan-field-input>
+            </div>
+        </div>
+        <div class="form-group">
+            <plan-field-input
+                    tip="Enter your message">
+                <textarea placeholder="Message" class="form-control" rows="4"
+                          ng-model="vmShareRequest.request.message"></textarea>
+            </plan-field-input>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions"><button class="btn" ng-click="vmShareRequest.send()">Send Request</button></div>
+</div>

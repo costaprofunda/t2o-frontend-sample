@@ -1,0 +1,9 @@
+<div class="input-group" ng-class="{'required': !!required, 'has-error':!!errors.length}">
+    <span class="input-content" ng-transclude></span>
+    <span class="input-group-addon plan-input-group-addon">
+        <i class="fa fa-question"
+           tooltip-placement="{{!tooltipBottom ? 'left' : 'bottom'}}"
+           uib-tooltip="{{tip}}">
+        </i>
+    </span>
+</div>

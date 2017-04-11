@@ -1,0 +1,353 @@
+<div class="new-plan-content">
+
+    <div id="step-marker" class="new-plan__step-markers row">
+
+        <div class="col-xs-4 new-plan__step-marker">
+                <span class="new-plan__step-marker--circle"
+                      ng-class="{'current': vmNewItem.step == 0, 'passed': vmNewItem.step > 0}"
+                      ng-click="vmNewItem.setStep(0)">
+                  <span>1</span>
+                  <i class="fa fa-check"></i>
+                </span>
+
+            <div>Item</div>
+        </div>
+
+        <div class="col-xs-4 new-plan__step-marker">
+                <span class="new-plan__step-marker--circle"
+                      ng-class="{'current': vmNewItem.step == 1, 'passed': vmNewItem.step > 1}"
+                      ng-click="vmNewItem.setStep(1)">
+                  <span>2</span>
+                  <i class="fa fa-check"></i>
+                </span>
+
+            <div>Seller</div>
+        </div>
+
+        <div class="col-xs-4 new-plan__step-marker">
+                <span class="new-plan__step-marker--circle"
+                      ng-class="{'current': vmNewItem.step == 2, 'passed': vmNewItem.step > 2}"
+                      ng-click="vmNewItem.setStep(2)">
+                  <span>3</span>
+                  <i class="fa fa-check"></i>
+                </span>
+
+            <div>Team</div>
+        </div>
+
+    </div>
+
+    <div class="new-plan__step-list">
+
+        <div class="new-plan__step-content" ng-show="vmNewItem.step == 0">
+
+            <h4>
+                What Item are you posting?
+            </h4>
+
+            <div class="form-group">
+                <plan-field-input class="combined" tip="Example: http://www.apple.com/iphone-6/">
+                    <input class="form-control"
+                           placeholder="URL"
+                           ng-model="vmNewItem.item.url">
+                    <label class="input-group-addon plan-input-group-addon addon-button clickable"
+                           ng-click="vmNewItem.scrapeInfo()" ng-show="vmNewItem.canUrlBeParsed()">
+                        <strong>Autofill</strong>
+                    </label>
+                </plan-field-input>
+            </div>
+
+            <div class="form-group">
+                <plan-field-input tip="Example: Apple iPhone 6"
+                                  required="true"
+                                  errors="vmNewItem.errors.productName">
+                    <input class="form-control"
+                           placeholder="Product Name"
+                           ng-model="vmNewItem.item.productName">
+                </plan-field-input>
+                <plan-field-input tip="This includes taxes, and other costs for obtaining your item"
+                                  required="true"
+                                  errors="vmNewItem.errors.allInclusivePrice">
+                    <input type="text"
+                           class="form-control"
+                           model="vmNewItem.item.allInclusivePrice"
+                           currency-input
+                           size="30"
+                           placeholder="All Inclusive Price">
+                </plan-field-input>
+                <plan-field-input
+                        tip="Example: iPhone 6 isn’t simply bigger — it’s better in every way. Larger, yet dramatically...">
+                    <textarea placeholder="Description"
+                              maxlength="1000"
+                              class="form-control"
+                              rows="4"
+                              ng-model="vmNewItem.item.description">
+                    </textarea>
+                </plan-field-input>
+                <plan-field-input
+                        tip="Example: 6.9mm thin, 1334×750 Resolution, 64-bit, A8 Chip, M8 Motion Coprocessor">
+                    <textarea placeholder="Features"
+                              maxlength="500"
+                              class="form-control"
+                              rows="4"
+                              ng-model="vmNewItem.item.features">
+                    </textarea>
+                </plan-field-input>
+            </div>
+
+            <div class="form-group">
+                <plan-field-input tip="Choose a category from list"
+                                  required="true"
+                                  errors="vmNewItem.errors.categoryId">
+                    <combo placeholder="Category"
+                           model="vmNewItem.item.categoryId"
+                           items="vmNewItem.categoryList"
+                           filter-name="name"
+                           select-id="true"></combo>
+                </plan-field-input>
+            </div>
+
+            <div class="plan-add-image-container">
+                <div class="plan-add-image" ng-class="{'image-filled': !!vmNewItem.images[0], 'has-error': !!vmNewItem.errors.images.length}"
+                     ng-click="vmNewItem.onImageClick(vmNewItem.images[0])">
+                    <div class="small-image" ng-if="!!vmNewItem.images[0]" ng-cloak
+                         ng-style="{'background-image':'url(' + vmNewItem.images[0].url + ')'}"></div>
+                    <i ng-if="!vmNewItem.images[0]" class="fa fa-camera"></i>
+                </div>
+                <div class="plan-add-image" ng-class="{'image-filled': !!vmNewItem.images[1]}"
+                     ng-click="vmNewItem.onImageClick(vmNewItem.images[1])">
+                    <div class="small-image" ng-if="!!vmNewItem.images[1]" ng-cloak
+                         ng-style="{'background-image':'url(' + vmNewItem.images[1].url + ')'}"></div>
+                    <i ng-if="!vmNewItem.images[1]" class="fa fa-camera"></i>
+                </div>
+                <div class="plan-add-image" ng-class="{'image-filled': !!vmNewItem.images[2]}"
+                     ng-click="vmNewItem.onImageClick(vmNewItem.images[2])">
+                    <div class="small-image" ng-if="!!vmNewItem.images[2]" ng-cloak
+                         ng-style="{'background-image':'url(' + vmNewItem.images[2].url + ')'}"></div>
+                    <i ng-if="!vmNewItem.images[2]" class="fa fa-camera"></i>
+                </div>
+                <div class="plan-add-image" ng-class="{'image-filled': !!vmNewItem.images[3]}"
+                     ng-click="vmNewItem.onImageClick(vmNewItem.images[3])">
+                    <div class="small-image" ng-if="!!vmNewItem.images[3]" ng-cloak
+                         ng-style="{'background-image':'url(' + vmNewItem.images[3].url + ')'}"></div>
+                    <i ng-if="!vmNewItem.images[3]" class="fa fa-camera"></i>
+                </div>
+                <div class="plan-add-image" ng-class="{'image-filled': !!vmNewItem.images[4]}"
+                     ng-click="vmNewItem.onImageClick(vmNewItem.images[4])">
+                    <div class="small-image" ng-if="!!vmNewItem.images[4]" ng-cloak
+                         ng-style="{'background-image':'url(' + vmNewItem.images[4].url + ')'}"></div>
+                    <i ng-if="!vmNewItem.images[4]" class="fa fa-camera"></i>
+                </div>
+            </div>
+
+        </div>
+        <!-- end step 0 -->
+
+        <div class="new-plan__step-content" ng-show="vmNewItem.step == 1">
+
+            <h4>
+                Who will you buy this from?
+            </h4>
+
+            <div class="form-group">
+                <plan-field-input tip="Example: Best Buy"
+                                  required="true"
+                                  errors="vmNewItem.errors.vendorName">
+                    <input class="form-control"
+                           placeholder="Vendor Name"
+                           ng-model="vmNewItem.item.vendorName">
+                </plan-field-input>
+            </div>
+
+            <div class="form-group">
+                <plan-field-input
+                        tip="Example: http://www.bestbuy.com/site/apple-iphone-6-128gb-gold-verizon-wireless/7642006.p?id=1219289511989&skuId=7642006">
+                    <input class="form-control"
+                           placeholder="Vendor URL"
+                           ng-model="vmNewItem.item.vendorUrl">
+                </plan-field-input>
+            </div>
+
+            <div class="form-group">
+                <plan-field-input
+                        tip="This is the name of the contact at the Vendor Location, often this is the name of a salesperson">
+                    <input class="form-control"
+                           placeholder="Contact Name"
+                           ng-model="vmNewItem.item.contactName">
+                </plan-field-input>
+                <plan-field-input tip="Example: 512-512-5151">
+                    <input class="form-control"
+                           placeholder="Phone"
+                           ng-model="vmNewItem.item.phone">
+                </plan-field-input>
+                <plan-field-input tip="Example: asmith@bestbuy.com">
+                    <input class="form-control"
+                           type="email"
+                           placeholder="Email"
+                           ng-model="vmNewItem.item.email">
+                </plan-field-input>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group input-group-title">
+                    <div class="form-control form-control-title info-form">
+                        <span ng-bind="vmNewItem.item | productInfo"></span>
+                    </div>
+                </div>
+                <plan-field-input tip="Example: $299.99"
+                                  required="true"
+                                  errors="vmNewItem.errors.allInclusivePrice">
+                    <input type="text"
+                           class="form-control"
+                           model="vmNewItem.item.allInclusivePrice"
+                           currency-input
+                           size="30"
+                           placeholder="All Inclusive Price">
+                </plan-field-input>
+                <plan-field-input tip="Example: This includes a 2 year contract with Verizon Wireless">
+                    <textarea placeholder="Why is this a good deal?"
+                              class="form-control"
+                              rows="4"
+                              ng-model="vmNewItem.item.goodDeal">
+                    </textarea>
+                </plan-field-input>
+            </div>
+
+        </div>
+        <!-- end step 1 -->
+
+        <div class="new-plan__step-content" ng-show="vmNewItem.step == 2">
+
+            <div class="text-center">
+                <span>How many shares will be available?</span>
+            </div>
+            <div class="form-group new-plan__number-of-agree-form-group">
+                <plan-field-input tip="These are the total number of shares for this purchasing plan"
+                                  tooltip-bottom="true"
+                                  required="true"
+                                  errors="vmNewItem.errors.shares">
+                    <input placeholder="# of Shares" type="number"
+                           min="2"
+                           class="form-control text-center"
+                           required ng-model="vmNewItem.item.shares">
+                </plan-field-input>
+            </div>
+
+            <div class="text-center">
+                <span>Does everybody have to agree to move forward on a decision?</span>
+            </div>
+            <div class="form-group new-plan__number-of-agree-form-group">
+                <plan-field-input tip="This defines whether decisions have to be unanimous or not"
+                                  tooltip-bottom="true">
+                    <label class="form-control no-padding text-center">
+                        <span class="checkbox-replacement" ng-class="{'no': !vmNewItem.item.everybodyForAgree}">
+                            No
+                        </span>
+                        <span class="checkbox-replacement" ng-class="{'yes': vmNewItem.item.everybodyForAgree}">
+                            Yes
+                        </span>
+                        <input class="form-control position-left-hidden"
+                               type="checkbox"
+                               ng-model="vmNewItem.item.everybodyForAgree">
+                    </label>
+                </plan-field-input>
+            </div>
+
+            <div class="text-center">
+                <span ng-style="{visibility: vmNewItem.item.everybodyForAgree ? 'hidden' : 'visible'}">
+                    How many need to agree?
+                </span>
+            </div>
+            <div class="form-group new-plan__number-of-agree-form-group"
+                 ng-style="{visibility: vmNewItem.item.everybodyForAgree ? 'hidden' : 'visible'}">
+                <plan-field-input
+                        tip="If the Answer is 6/10 then this means that 60% will need to agree to pass a decision"
+                        tooltip-bottom="true"
+                        class="combined"
+                        required="true"
+                        errors="vmNewItem.errors.numberToAgree">
+                    <input class="form-control text-right"
+                           type="number"
+                           min="{{vmNewItem.minNumberToAgree}}"
+                           max="{{vmNewItem.item.shares}}"
+                           ng-model="vmNewItem.item.numberToAgree">
+                    <span class="input-group-addon plan-input-group-addon input-group-addon-number-of-shares">
+                        /
+                        <span ng-bind="vmNewItem.item.shares"></span>
+                    </span>
+                </plan-field-input>
+            </div>
+
+            <div class="text-center">
+                <span>How many shares do you want to have?</span>
+            </div>
+            <div class="form-group new-plan__number-of-shares-form-group">
+                <plan-field-input
+                        tip="Having more than one share will mean that you'll have to pay for those shares, but it also means your votes carry more weight and you would get more time with the item"
+                        tooltip-bottom="true"
+                        class="combined"
+                        required="true"
+                        errors="vmNewitem.errors.authorShares">
+                    <input class="form-control text-right"
+                           type="number"
+                           min="1"
+                           max="{{vmNewItem.item.shares - 1}}"
+                           ng-model="vmNewItem.item.authorShares">
+                    <span class="input-group-addon plan-input-group-addon input-group-addon-number-of-shares">
+                        /
+                        <span ng-bind="vmNewItem.item.shares"></span>
+                    </span>
+                </plan-field-input>
+            </div>
+
+            <div class="text-center">
+                <span>When should this be ready to buy?</span>
+            </div>
+            <div class="form-group new-plan__plan-end-date-group">
+                <plan-field-input
+                        tip="When the item has reached this date we call a vote to check if the team is ready to move forward"
+                        tooltip-bottom="true"
+                        required="true"
+                        errors="vmNewItem.errors.expiration">
+                    <date model="vmNewItem.item.expiration"
+                          placeholder="mm/dd/yyyy"
+                          min-date="vmNewItem.minBuyDate"></date>
+                </plan-field-input>
+            </div>
+            <div class="form-group">
+                <plan-field-input
+                        tip="This message will be displayed on the home page"
+                        tooltip-bottom="true">
+                    <textarea placeholder="Add a message to your post"
+                              maxlength="1000"
+                              class="form-control"
+                              rows="4"
+                              ng-model="vmNewItem.item.message">
+                    </textarea>
+                </plan-field-input>
+            </div>
+        </div>
+        <!-- end step 2 -->
+
+    </div>
+
+    <div class="new-plan__step-switchers row">
+        <div class="col-xs-12 text-nowrap">
+            <div class="pull-right">
+                <span>Next:</span>
+                <span ng-bind="vmNewItem.stepNames[vmNewItem.step + 1]"></span>
+                <span class="new-plan__step-switcher" ng-click="vmNewItem.incStep()">
+                    <i class="fa fa-arrow-right"></i>
+                </span>
+            </div>
+            <div class="pull-left" ng-show="vmNewItem.step > 0">
+                <span class="new-plan__step-switcher" ng-click="vmNewItem.decStep()">
+                    <i class="fa fa-arrow-left"></i>
+                </span>
+                <span>Prev:</span>
+                <span ng-bind="vmNewItem.stepNames[vmNewItem.step - 1]"></span>
+            </div>
+        </div>
+    </div>
+
+</div>

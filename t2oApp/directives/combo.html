@@ -1,0 +1,26 @@
+<span class="combo-area">
+    <select
+            ng-if="selectId"
+            chosen
+            disable-search="{{noSearch}}"
+            data-placeholder="{{placeholder}}"
+            allow-single-deselect="{{deselect}}"
+            class="form-control"
+            ng-model="$parent.model"
+            ng-options="item.id as (item | filterProxy: filterName) group by item.group for item in items"
+            ng-disabled="disabled">
+        <option value=""></option>
+    </select>
+    <select
+            ng-if="!selectId"
+            chosen
+            disable-search="{{noSearch}}"
+            data-placeholder="{{placeholder}}"
+            allow-single-deselect="{{deselect}}"
+            class="form-control"
+            ng-model="$parent.model"
+            ng-options="item as (item | filterProxy: filterName) group by item.group for item in items"
+            ng-disabled="disabled">
+        <option value=""></option>
+    </select>
+</span>

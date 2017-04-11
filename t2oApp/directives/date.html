@@ -1,0 +1,15 @@
+<span class="date-input" ng-cloak>
+    <input
+            type="text"
+            class="form-control"
+            uib-datepicker-popup="MM/dd/yyyy"
+            ng-model="model"
+            is-open="datePickerIsOpened"
+            datepicker-options="{startingDay: 0, showWeeks: false}"
+            min-date="minDate"
+            custom-class="'custom'"
+            ng-click="openDatePicker($event)"
+            placeholder="{{placeholder}}"
+            ng-change="change()">
+    <i class="fa fa-calendar" ng-click="openDatePicker($event)"></i>
+</span>

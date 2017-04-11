@@ -1,0 +1,2726 @@
+/*@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,700,700italic);*/
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/open-sans-300-normal.woff2) format('woff2'), url(../fonts/open-sans-300-normal.woff) format('woff');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(../fonts/open-sans-400-normal.woff2) format('woff2'), url(../fonts/open-sans-400-normal.woff) format('woff');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(../fonts/open-sans-700-normal.woff2) format('woff2'), url(../fonts/open-sans-700-normal.woff) format('woff');
+}
+
+@keyframes opacityFadeIn {
+    from {
+        opacity: 0;
+    } to {
+          opacity: 1;
+      }
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #404040;
+    margin: 0;
+    padding: 0;
+}
+
+/*Header*/
+
+header {
+    background-color: #333f4f;
+    color: #fff;
+}
+
+header .container {
+    padding: 0 40px;
+}
+
+header .beta {
+    bottom: 3px;
+    color: #1eb1ed;
+    font-weight: 400;
+    position: absolute;
+    left: 125px;
+}
+
+header .col {
+    height: 73px;
+    display: flex;
+    align-items: center;
+}
+
+header .col-content {
+    width: 100%;
+}
+
+header .search-form {
+    float: right;
+    width: 100%;
+}
+
+header .search-form input {
+    background: #808080;
+    border-radius: 100px;
+    color: #fff;
+}
+
+header .search-form input:focus {
+    border-color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+header .search-form label {
+    position: absolute;
+    right: 25px;
+    top: 24px;
+    font-size: 1.2em;
+    color: #bebebe;
+    cursor: pointer;
+}
+
+header .search-form label:hover {
+    color: #fff;
+}
+
+header .user-info, header .sign-actions {
+    float: right;
+}
+
+header .user-info .user-avatar {
+    float: left;
+}
+
+header .user-info .fa-caret-down {
+    float: left;
+    margin-left: 3px;
+    position: relative;
+    top: 15px;
+}
+
+header .user-info {
+    width: 100%;
+}
+
+header .user-info .user-name {
+    float: left;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    max-width: 244px;
+    text-align: center;
+}
+
+header .user-info .dropdown {
+    cursor: pointer;
+}
+
+header .dropdown-menu {
+    color: #fff;
+    background: #333f4f;
+    box-shadow: 2px 2px 7px 0 rgba(0,0,0,0.33);
+    border-radius: 3px;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    top: 41px;
+    text-align: center;
+}
+
+header .dropdown-menu > .fa-caret-up {
+    color: #333f4f;
+    position: absolute;
+    left: 48%;
+    top: -11px;
+}
+
+header .dropdown-menu > li > a {
+    color: #bebebe;
+    padding: 5px 10px;
+}
+
+header .dropdown-menu > li > a:hover {
+    color: #fff;
+    background-color: #333f4f;
+}
+
+header .user-info .notifications {
+    cursor: pointer;
+    float: right;
+    position: relative;
+    top: 8px;
+}
+
+header .user-info .notifications .unread-count {
+    background-color: #1eb1ed;
+    border-radius: 100%;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 700;
+    height: 22px;
+    line-height: 22px;
+    position: absolute;
+    right: -10px;
+    text-align: center;
+    top: -12px;
+    width: 22px;
+}
+
+header .user-info .notification-trigger {
+    top: 24px;
+    position: absolute;
+}
+
+header .user-info .notification-trigger .fa {
+    font-size: 1.4em;
+}
+
+header .user-info .notification-trigger .unread-count {
+    margin-top: 2px;
+    color: #333f4f;
+    font-size: 0.7em;
+    font-weight: 700;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    width: 20px;
+}
+
+header .notification-controls {
+    display: inline-block;
+    float: right;
+    width: 26px;
+}
+
+header .user-info .user-controls {
+    display: inline-block;
+    width: 92%;
+}
+
+
+header .user-info .user-controls .user-dropdown-area {
+    left: 43%;
+    margin-right: -57%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+header #user-dropdown-menu {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 115px;
+
+}
+
+header #notifications-dropdown-menu {
+    left: -268px;
+    top: 54px;
+    padding: 10px;
+    width: 286px;
+    cursor: default;
+}
+
+header #notifications-dropdown-menu > .fa-caret-up {
+    left: 96%;
+}
+
+header #notifications-dropdown-menu .notification {
+    text-align: left;
+    margin: 5px 0;
+    border-top: 1px solid #fff;
+}
+
+header #notifications-dropdown-menu li:last-child {
+    border-top: 1px solid #fff;
+}
+
+header #notifications-dropdown-menu .notification.no-results {
+    text-align: center;
+}
+
+header #notifications-dropdown-menu .notification .text {
+    font-size: .8em;
+    line-height: 14px;
+    max-height: 42px;
+    overflow: hidden;
+}
+
+header #notifications-dropdown-menu .notification .go-to-plan, .notifications .notifications-area .go-to-plan {
+    /*padding-right: 10px;*/
+}
+
+header #notifications-dropdown-menu .notification .go-to-plan img {
+    height: 23px;
+    width: 31px;
+}
+
+header #notifications-dropdown-menu .notification .fa, .notifications .notifications-area .fa {
+    color: #bebebe;
+    cursor: pointer;
+}
+
+header #notifications-dropdown-menu .notification .fa:hover, .notifications .notifications-area .fa:hover {
+    color: #fff;
+}
+
+header #notifications-dropdown-menu .notification .col-inner {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+header .link span {
+    color: #bebebe;
+    cursor: pointer;
+}
+
+header .link a {
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    text-decoration: underline;
+    top: 2px;
+}
+
+header .link a:hover {
+    text-decoration: none;
+}
+
+header .link span:hover {
+    color: #fff;
+}
+
+header .btn {
+    color: #fff;
+    background: #1eb1ed;
+    border-radius: 3px;
+}
+
+header .btn:hover {
+    color: #fff;
+    background-color: #6c8f9d;
+}
+
+.categories-menu {
+    text-align: center;
+    background-color: #f0f8ff;
+    color: #808080;
+    font-weight: 400;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.176);
+}
+
+.categories-menu::after {
+    /*content: "";*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*box-shadow: 0 1px 5px rgba(0, 0, 0, 0.176);*/
+    /*display: inline-block;*/
+}
+
+.categories-menu .categories-list {
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.categories-menu .category {
+    display: inline-block;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.categories-menu #categories-area .category {
+    display: block;
+    text-align: left;
+    cursor: pointer;
+}
+
+.categories-menu .categories-dropdown {
+    background-color: #f0f8ff;
+    border: medium none;
+    border-radius: 0;
+    left: -10px;
+    padding: 8px 10px;
+    top: 20px;
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.176);
+    width: 270px;
+}
+
+.categories-menu .categories-dropdown .category-child {
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.categories-menu .category.selected > span, .categories-menu .categories-dropdown .category-child:hover {
+    color: #404040;
+}
+
+.categories-menu #search-area .search-form .entry-field {
+    border-radius: 100px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.categories-menu #search-area .search-form .search-control {
+    float: left;
+}
+
+.categories-menu #search-area .search-form .search-control label {
+    position: absolute;
+    margin-top: 6px;
+    right: 27px;
+    cursor: pointer;
+}
+
+/*Footer*/
+
+footer {
+    background-color: #333f4f;
+    color: #ceced2;
+    clear: both;
+    position: relative;
+    margin-top: -3em;
+    height: 145px;
+}
+
+footer img {
+    margin-top: 47px;
+    opacity: .12;
+}
+
+footer p {
+    text-align: center;
+    font-size: .7em;
+}
+
+/*Plan Content*/
+
+.plan-content, .user-profile {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.176);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.plan-content .notifications-area {
+    background-color: #f0f8ff;
+}
+
+.plan-content .notifications-area .alert-notification:first-child {
+    margin-top: 15px;
+}
+
+.plan-content .notifications-area .alert-notification:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.plan-content .notifications-area .alert-notification {
+    cursor: pointer;
+    margin: 0 25px;
+}
+
+.plan-content .notifications-area .alert-notification a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.plan-content .notifications-area .alert-notification a:hover {
+    text-decoration: none;
+}
+
+.plan-content > .subheader {
+    padding: 15px 0;
+    background-color: #1eb1ed;
+    color: #fff;
+    font-weight: 400;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.318);
+}
+
+.plan-content.closed > .subheader {
+    background-color: #d2935d;
+}
+
+.plan-content.abandoned > .subheader {
+    background-color: #677077;
+}
+
+.plan-content > .subheader::after {
+    border: 1px solid #f0f8ff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.176);
+    content: "";
+    height: 0;
+    position: absolute;
+    top: -3px;
+    width: 98%;
+}
+
+.plan-content .subheader .plan-title-and-category {
+    margin-left: 3%;
+}
+
+.plan-content .subheader .plan-title-and-category .plan-title {
+    font-size: 1.4em;
+    line-height: 1em;
+    margin-top: 6px;
+}
+
+.plan-content .subheader .plan-title-and-category .plan-category {
+    margin-top: 6px;
+}
+
+.plan-content .subheader .price {
+    float: right;
+    margin-right: 18%;
+}
+
+.plan-content .subheader .price .price-value {
+    font-size: 2em;
+}
+
+.plan-content .subheader .price .price-description {
+    float: right;
+}
+
+.plan-content .subheader .plan-title-and-category .plan-category, .plan-content .subheader .price .price-description {
+    font-size: .8em;
+}
+
+.plan-content .showcase {
+    background-color: #f0f8ff;
+}
+
+.plan-content .showcase .plan-images {
+    margin: 4% 0 0 4%;
+    padding-bottom: 20px;
+}
+
+.plan-content .showcase .plan-main-image {
+    border: 1px solid #ceced2;
+    display: inline-block;
+    width: 100%;
+}
+
+.plan-content .showcase .plan-add-image:not(:first-child) {
+    margin-left: 15px;
+}
+
+.plan-content .showcase .image-control {
+    height: 90%;
+    position: absolute;
+    display: inline-block;
+    top: 13px;
+}
+
+.plan-content .showcase .image-control .actions {
+    align-items: center;
+    display: flex;
+    height: 100%;
+}
+
+.plan-content .showcase .image-control .fa {
+    cursor: pointer;
+    color: #808080;
+    position: relative;
+}
+
+.plan-content .showcase .image-control.control-left {
+    left: 18px;
+}
+
+.plan-content .showcase .image-control.control-right {
+    right: 5px;
+}
+
+.plan-content .showcase .plan-images > .edit {
+    background-color: #808080;
+    bottom: 26px;
+    color: #fff;
+    text-transform: uppercase;
+    position: absolute;
+    right: 16px;
+    padding: 0 9px;
+    border-top-left-radius: 7px;
+    cursor: pointer;
+}
+
+.plan-content .showcase .plan-info {
+    width: 95%;
+}
+
+.plan-content .showcase .plan-info .key-stats {
+    text-align: center;
+    margin-top: 45px;
+    border-bottom: 1px solid #abb4bd;
+    padding-bottom: 20px;
+    color: #808080;
+}
+
+.plan-content .showcase .plan-info .key-stats .stat-info {
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.plan-content .showcase .description-area {
+    padding: 10px 0 10px;
+    line-height: 24px;
+    border-bottom: 1px solid #abb4bd;
+    height: 356px;
+}
+
+.plan-content .showcase .description-area .title {
+    font-weight: 400;
+}
+
+.plan-content .showcase .description-area .plan-description {
+    max-height: 86%;
+    overflow: hidden;
+}
+
+.plan-content .showcase .description-area .see-all-details {
+    text-decoration: underline;
+    color: #808080;
+    font-size: .8em;
+    cursor: pointer;
+}
+
+.plan-content .showcase .description-area.bottom-description {
+    margin: 0 15px;
+    height: initial;
+    line-height: 20px;
+}
+
+.plan-content .showcase .description-area.bottom-description .plan-description {
+    font-size: .9em;
+}
+
+.plan-content .showcase .plan-info .actions, .item-list-content .plan-list .plan-list-item .actions {
+    color: #808080;
+    margin-top: 55px;
+}
+
+.plan-content .showcase .plan-info .actions .favorites, .item-list-content .plan-list .plan-list-item .actions .favorites {
+    text-decoration: underline;
+}
+
+.plan-content .showcase .plan-info .actions .favorites .fa-star-o, .item-list-content .plan-list .plan-list-item .actions .favorites .fa-star-o {
+    font-size: 1.2em;
+    margin-right: 6px;
+}
+
+.plan-content .showcase .plan-info .actions .socials, .item-list-content .plan-list .plan-list-item .actions .socials {
+    float: right;
+    font-weight: 400;
+    color: #404040;
+}
+
+.plan-content .showcase .join-team {
+    text-align: center;
+    border-top: 1px solid #abb4bd;
+    padding: 20px 0 30px;
+    margin: 0 40px;
+}
+
+.plan-content .showcase .join-team .btn {
+    background: #1eb1ed;
+    border-radius: 3px;
+    font-size: 1.4em;
+    color: #fff;
+}
+
+.plan-content .showcase .join-team .btn:hover {
+    background-color: #6c8f9d;
+}
+
+.plan-content .showcase .join-team .make-copy, .plan-content .share-requests .actions .increase-stake {
+    text-decoration: underline;
+    font-size: .8em;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.plan-content .showcase .join-team .joined-info {
+    font-size: 1.4em;
+}
+
+.plan-content .showcase .join-team .joined-info img {
+    margin-right: 8px;
+}
+
+.plan-content .cost-members {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.plan-content .cost-members .subsection-title {
+    font-size: 1.7em;
+    text-transform: uppercase;
+    color: #808080;
+    margin-bottom: 20px;
+}
+
+.plan-content .cost-members .cost {
+    border-right: 1px solid #979797;
+}
+
+.plan-content .cost-members .cost .price-info {
+    text-align: left;
+    table-layout: fixed;
+    width: 93%;
+    margin-left: 20px;
+}
+
+.plan-content .cost-members .cost .price-info > tbody > tr:first-child {
+    font-weight: 400;
+}
+
+.plan-content .cost-members .cost .price-info > tbody > tr {
+    height: 24px;
+}
+
+.plan-content .cost-members .cost .price-info > tbody > tr:nth-of-type(2n) {
+    background-color: #e6eaef;
+}
+
+.plan-content .cost-members .cost .price-info td {
+    width: 61%;
+}
+
+.plan-content .cost-members .cost .price-info td+td {
+    width: auto;
+}
+
+.plan-content .cost-members .cost .control-span {
+    padding-left: 20px;
+}
+
+.plan-content .cost-members .membership .members-count {
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+.plan-content .cost-members .membership .members {
+    margin-left: 40px;
+}
+
+.plan-content .cost-members .membership .members .user-avatar {
+    position: relative;
+}
+
+.plan-content .cost-members .membership .more-members {
+    margin-top: 5px;
+    text-decoration: underline;
+}
+
+.plan-content .cost-members .shares-total {
+    font-weight: 400;
+}
+
+.plan-content .cost-members .shares {
+    margin-top: 8px;
+}
+
+.plan-content .cost-members .shares img {
+    position: relative;
+    right: 3px;
+    bottom: 3px;
+}
+
+.plan-content .voting {
+    background-color: #f0f8ff;
+    /*margin-top: 40px;*/
+    padding: 40px 0;
+}
+
+.plan-content .voting .subsection-header, .plan-content .share-requests .subsection-header, .plan-content .payment .subsection-header {
+    text-align: center;
+    color: #808080;
+}
+
+.plan-content .voting .subsection-header .subsection-title, .plan-content .share-requests .subsection-header .subsection-title, .plan-content .payment .subsection-title {
+    font-size: 1.7em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.plan-content .voting .filter-row {
+    width: 100%;
+}
+
+.plan-content .voting .filter-area {
+    float: right;
+    margin-right: 25px;
+}
+
+.plan-content .voting .filter-area .btn {
+    color: #fff;
+    background: #333f4f;
+    border-radius: 3px;
+    width: 130px;
+    position: relative;
+    bottom: 28px;
+}
+
+.plan-content .voting .filter-area .btn span {
+    float: left;
+}
+
+.plan-content .voting .filter-area .btn .fa {
+    float: right;
+    margin-top: 3px;
+}
+
+.plan-content .voting .filter-area .dropdown-menu {
+    min-width: 130px;
+    width: 130px;
+    border-width: 0 1px 1px;
+    border-style: solid;
+    border-color: #333f4f;
+    background-color: #c1cbd7;
+    border-radius: 0 0 3px 3px;
+    top: 2px;
+}
+
+.plan-content .voting .filter-area .dropdown-menu > li > a {
+    color: #fff;
+    padding: 3px 15px;
+}
+
+.plan-content .voting .filter-area .dropdown-menu > li > a:hover {
+    background-color: inherit;
+}
+
+.plan-content .voting .filter-area .dropdown-menu > li > a.selected {
+    color: #ebebeb;
+    cursor: default;
+}
+
+.plan-content .voting .filter-area .dropdown-menu > li > a.selected:hover {
+    color: #ebebeb;
+}
+
+
+.plan-content .voting .question.new-one .plan-item {
+    background-color: #e6eaef;
+    cursor: pointer;
+}
+
+.plan-content .voting .question.new-one .plan-item:hover {
+    background-color: #c1cbd7;
+}
+
+.plan-content .voting .question.new-one .plan-item .head {
+    padding-bottom: 25px;
+}
+
+.plan-content .voting .question.new-one .plan-item .icon-area {
+    width: 100%;
+    text-align: center;
+}
+
+.plan-content .voting .question.new-one .plan-item .icon-area .fa-plus {
+    color: #fff;
+    font-size: 4.6em;
+}
+
+.plan-content .voting .question.new-one .plan-item .question .col-value {
+    font-weight: 300;
+}
+
+.plan-content .share-requests {
+    margin-top: 40px;
+}
+
+.plan-content .share-requests .subsection-header {
+    margin-bottom: 30px;
+}
+
+.plan-content .share-requests .actions {
+    text-align: center;
+}
+
+.plan-content .share-requests .socials {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.plan-content .payment {
+    padding: 40px 0;
+    margin-top: 40px;
+    background-color: #f0f8ff;
+}
+
+.plan-content .payment .payment-content {
+    margin-top: 20px;
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+.plan-content .payment .payment-content .payment-pro-user {
+    display: inline-block;
+    margin: 10px;
+}
+
+/*Item List (Main Page)*/
+
+.item-list-content {
+    margin: 20px 25px;
+}
+
+.item-list-content > .actions {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.item-list-content .uib-tab > div:hover {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.item-list-content .uib-tab.active > div, .item-list-content .uib-tab.active > div:hover {
+    background-color: #f0f8ff;
+    cursor: default;
+}
+
+.item-list-content .distance {
+    background-color: #e6eaef;
+    border-bottom-left-radius: 7px;
+    border-bottom: 1px solid #ceced2;
+    border-left: 1px solid #ceced2;
+    color: #808080;
+    font-size: .9em;
+    padding: 0 4px 0 5px;
+    position: absolute;
+    top: -30px;
+    right: -15px;
+    text-transform: uppercase;
+}
+
+.item-list-content .plan-category, .item-list-content .alert-notification {
+    margin: 15px 0;
+}
+
+.item-list-content .nav-tabs {
+    border-bottom: none;
+}
+
+.item-list-content .no-plans .nav-tabs li.active > div {
+    border-bottom: 1px solid #ddd;
+}
+
+.item-list-content .plan-list .plan-list-item {
+    padding: 30px 30px 30px 15px;
+    background: #f0f8ff;
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-main-image {
+    border: 1px solid #ceced2;
+    cursor: pointer;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-title {
+    font-size: 1.2em;
+    font-weight: 400;
+    /*width: 75%;*/
+    display: inline-block;
+    cursor: pointer;
+}
+
+.item-list-content .plan-list .plan-list-item .price {
+    float: right;
+    position: relative;
+    bottom: 6px;
+    font-weight: 400;
+}
+
+.item-list-content .plan-list .plan-list-item .price .price-value {
+    font-size: 1.8em;
+}
+
+.item-list-content .plan-list .plan-list-item .price .price-description {
+    font-size: .8em;
+    float: right;
+    position: relative;
+    bottom: 2px;
+}
+
+.item-list-content .plan-list .plan-list-item .message {
+    font-size: .9em;
+    margin-top: 5px;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-info {
+    height: 270px;
+    border-bottom: 1px solid #abb4bd;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-main-info {
+    max-height: 185px;
+    overflow: hidden;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-additional-info {
+    min-height: 80px;
+    position: relative;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-stats {
+    text-align: center;
+    color: #808080;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-stats .stat-icon {
+    margin-top: 5px;
+}
+
+.item-list-content .plan-list .plan-list-item .plan-stats .stat-info {
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+.item-list-content .plan-list .plan-list-item .actions {
+    margin-top: 15px;
+    font-weight: 400;
+}
+
+.item-list-content .pagination-area .pagination {
+    margin-top: 0;
+}
+
+/*New Item*/
+
+.new-plan-content .plan-add-image-container {
+    text-align: center;
+}
+
+.new-plan-content .plan-add-image-container .plan-add-image {
+    margin-bottom: 4px;
+    position: relative;
+    bottom: 3px;
+}
+
+/*User Profile*/
+
+.user-profile .main-info {
+    background-color: #f0f8ff;
+    padding: 40px;
+}
+
+.user-profile .main-info .user-image {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.user-profile .main-info .user-image .chat-icon .circle.user-avatar {
+    height: 200px;
+    width: 200px;
+    line-height: 200px;
+    font-size: 6em;
+}
+
+.user-profile .main-info .user-image .chat-icon .circle.user-avatar img {
+    height: 198px;
+    width: 198px;
+}
+
+.user-profile .main-info .right-block {
+    margin: 20px 20px 0 0;
+}
+
+.user-profile .main-info .right-block .info .name {
+    font-size: 3em;
+    /*line-height: 36px;*/
+}
+
+.user-profile .main-info .right-block .info .email {
+    font-size: 1.6em;
+}
+
+.user-profile .main-info .right-block .rating {
+    font-size: 2em;
+    margin: 20px 0;
+    color: #808080;
+}
+
+.user-profile .main-info .right-block .location .distance-from-you {
+    text-transform: uppercase;
+}
+
+.user-profile .main-info .right-block .actions {
+    position: relative;
+    bottom: 5px;
+}
+
+.user-profile .main-info .actions .action {
+    color: #808080;
+    font-size: 0.8em;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.user-profile .interests-connections {
+    text-align: center;
+}
+
+.user-profile .interests-connections, .user-profile .reviews {
+    padding: 40px 0;
+}
+
+.user-profile .interests-connections .interests {
+    border-right: 1px solid #979797;
+    cursor: pointer;
+}
+
+.user-profile .subsection-title {
+    color: #808080;
+    font-size: 1.7em;
+    text-transform: uppercase;
+}
+
+.user-profile .interests-connections .subsection-title, .user-profile .reviews .subsection-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-profile .interests-connections .interests .interesting-categories {
+    margin-top: 30px;
+}
+
+.user-profile .interests-connections .interests .interesting-categories .category {
+    margin: 2px;
+    padding: 2px 7px;
+    background-color: #333f4f;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.user-profile .interests-connections .connections .members .user-avatar {
+    position: relative;
+}
+
+.user-profile .reviews {
+    background-color: #f0f8ff;
+    color: #808080;
+}
+
+.user-profile .reviews .chat-area {
+    margin: 0 60px 0 40px;
+}
+
+.user-profile .reviews .review {
+    margin-bottom: 20px;
+}
+
+.user-profile .reviews .chat-area .avatar-percentage, .user-profile .reviews .chat-area .reviewer {
+    text-align: center;
+}
+
+.user-profile .reviews .chat-area .avatar-percentage .percentage {
+    font-size: 2em;
+}
+
+.user-profile .reviews .chat-area .chat-reply .user-avatar {
+    position: static;
+}
+
+.user-profile .reviews .chat-area .reply-info {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.user-profile .reviews .chat-area .message-box .actions .cancel {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*Notifications*/
+
+.notifications .section-header {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.notifications .section-header .section-title {
+    font-size: 1.7em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.notifications .notifications-actions {
+    margin-bottom: 10px;
+    font-size: .9em;
+    color: #888888;
+}
+
+.notifications .notifications-actions .action {
+    margin-right: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.notifications .notifications-area .col-inner {
+    display: flex;
+    align-items: center;
+    height: 70px;
+}
+
+.notifications .notifications-area .col-inner .check {
+    margin: 0 20px 0 5px;
+    cursor: pointer;
+}
+
+.notifications .notifications-area .read {
+    margin-left: 5px;
+}
+
+.notifications .pagination-area .items-per-page {
+    margin-top: 20px;
+}
+
+
+/*Plan Item Directive*/
+
+.plan-item {
+    background: #ffffff;
+    border: 1px solid #ceced2;
+    box-shadow: 0 2px 0 0 rgba(0,0,0,0.11);
+    border-radius: 8px;
+    margin: 0 25px 16px 40px;
+}
+
+.plan-item .head {
+    padding-top: 30px;
+}
+
+.plan-item .head.expanded {
+    padding-bottom: 25px;
+}
+
+.plan-item.plan-candidate .head.expanded {
+    padding-bottom: 21px;
+}
+
+.plan-item .head .chat-icon {
+    position: absolute;
+    left: -15px;
+}
+
+.plan-item .col-title {
+    color: #808080;
+    font-size: .7em;
+    text-transform: uppercase;
+}
+
+.plan-item .details .col-title {
+    font-size: .6em;
+}
+
+.plan-item .col-value {
+    font-size: 1.3em;
+}
+
+.plan-item .details .col-value {
+    font-size: 1em;
+    margin-bottom: 6px;
+}
+
+.plan-item .head .question {
+    margin-left: 50px;
+}
+
+.plan-item .head .question .col-value {
+    font-weight: 400;
+}
+
+.plan-item.share-request .head .question .col-value {
+    font-weight: 300;
+}
+
+.plan-item .head .question .leading-answer {
+    margin-top: 5px;
+}
+
+.plan-item .head .status .col-value img, .plan-item .support .supported img {
+    left: -5px;
+    position: absolute;
+    top: 23px;
+}
+
+.plan-item .head .propose-front {
+    color: #808080;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.plan-item .head .head-footer {
+    margin-top: 3px;
+}
+
+.plan-item.share-request .head .head-footer, .plan-item.single-voting .head .head-footer {
+    margin-top: 13px;
+}
+
+.plan-item .trigger {
+    text-transform: uppercase;
+    font-size: .7em;
+    float: right;
+    cursor: pointer;
+    background-color: #333f4f;
+    color: #fff;
+    border-top-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: 4px 14px;
+}
+
+.plan-content.closed .plan-item .trigger {
+    background-color: #d2935d;
+}
+
+.plan-item.single-voting .trigger {
+    top: 25px;
+}
+
+.plan-item .content {
+    border-top: 2px solid rgba(206, 206, 210, .6);
+}
+
+.plan-item .content .answer {
+    padding: 30px 0 0;
+}
+
+.plan-item .content .answer::after {
+    content: "";
+    width: 91.5%;
+    display: inline-block;
+    margin: 30px 0 0 45px;
+    border-bottom: 1px solid rgba(206, 206, 210, 1);
+}
+
+.plan-content .shares-to-pass {
+    color: #808080;
+    text-transform: uppercase;
+    font-size: .7em;
+}
+
+.plan-item .content .answer .proposal .all-details, .plan-item .cancel-support, .plan-item .content .actions .scrap, .plan-item .content .answer .edit {
+    font-size: .8em;
+    color: #808080;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.plan-item .cancel-support {
+    margin-left: 15px;
+    position: absolute;
+}
+
+.plan-item .content .answer .more-info {
+    text-align: center;
+    margin-right: 7%;
+}
+
+.plan-item .content .answer .more-info .trigger {
+    float: none;
+    position: absolute;
+    top: 9px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 7px;
+    width: 81px;
+}
+
+.plan-item .content .answer .avatar {
+    position: relative;
+    left: 50px;
+}
+
+.plan-item .content .answer .proposal {
+    margin-left: 20px;
+}
+
+.plan-item .btn {
+    color: #fff;
+    background: #1eb1ed;
+    border-radius: 3px;
+}
+
+.plan-item .content > .actions {
+    text-align: center;
+    padding: 35px 0;
+    margin: 0 45px;
+    border-bottom: 1px solid rgba(206, 206, 210, .6);
+}
+
+.plan-item .content > .actions .scrap {
+    margin-top: 6px;
+}
+
+.plan-item .content .discussion {
+    margin: 40px 50px 20px 8%;
+    padding: 20px 0;
+    background-color: #f0f8ff;
+}
+
+.plan-item .content .discussion .subheader {
+    margin-left: 8.5%;
+    font-weight: 400;
+    font-size: 1.2em;
+}
+
+.plan-item .content .item-footer .less-info .trigger {
+    top: 2px;
+}
+
+.plan-item .content .details {
+    margin: 10px 50px 0 110px;
+}
+
+.plan-item .content .answer .edit {
+    position: absolute;
+}
+
+.plan-item.plan-candidate .content .answer .proposal .message {
+    font-size: .7em;
+}
+
+.plan-item.share-request {
+    background-color: #f0f8ff;
+}
+
+.plan-item.share-request .head.expanded {
+    padding-bottom: 31px;
+}
+
+.plan-item.share-request .head .distance {
+    background-color: #e6eaef;
+    border-top-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom: 1px solid #ceced2;
+    border-right: 1px solid #ceced2;
+    color: #808080;
+    font-size: .9em;
+    padding: 0 9px;
+    position: absolute;
+    top: -30px;
+    text-transform: uppercase;
+}
+
+.plan-item.share-request .head .distance-info {
+    float: right;
+}
+
+.plan-item.share-request .content .additional-info {
+    margin: 20px 50px;
+}
+
+.plan-item.share-request .content .discussion {
+    margin-top: 20px;
+}
+
+/*Chat directive*/
+
+.chat-area .reply-tools .action {
+    font-size: .8em;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #808080;
+    margin-right: 1%;
+}
+
+.chat-area .reply-tools a.mobilee {
+    position: relative;
+    right: 10px;
+}
+
+.chat-area .root .reply-tools .message-box {
+    width: 98.6%;
+}
+
+.chat-area .leaf {
+    margin-left: 28px;
+    width: 96.6%;
+}
+
+.chat-area .root .chat-reply {
+    margin: 15px 0;
+}
+
+.chat-area .cancel-post {
+    margin-right: 15px;
+    color: #808080;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.chat-area .reply-info {
+    font-size: .8em;
+    text-transform: uppercase;
+}
+
+.reply-message-box .chat-reply {
+    width: 98%;
+}
+
+.chat-reply .text-col {
+    align-items: center;
+    display: flex;
+    min-height: 46px;
+}
+
+.chat-reply .user-avatar {
+    position: absolute;
+    left: -40px;
+    top: 0;
+}
+
+.chat-reply .message {
+    display: inline-block;
+}
+
+.chat-reply .message-row {
+    margin-left: -25px;
+    margin-right: 0;
+}
+
+.chat-reply .reply-info .edit-actions {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+}
+
+.reply-message-box .chat-reply .text-col textarea {
+    width: 100%;
+}
+
+.reply-message-box .chat-reply .actions {
+    float: right;
+    margin-top: 5px;
+}
+
+/*Plan Input Field Directive*/
+
+.plan-input-group-addon .fa {
+    cursor: pointer;
+    color: #ccc;
+    font-size: 1.8em;
+    padding: 0 2px;
+}
+
+/*Plan Member Directive*/
+
+.plan-member {
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ceced2;
+    box-shadow: 0 2px 0 0 rgba(0,0,0,0.11);
+    border-radius: 8px;
+    padding: 0 10px 10px;
+    margin-top: 30px;
+    width: 162px;
+}
+
+.plan-member .col-title {
+    color: #abb4bd;
+    font-size: .7em;
+    text-transform: uppercase;
+}
+
+.plan-member .chat-icon {
+    position: relative;
+    bottom: 30px;
+}
+
+.plan-member .user-info {
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-bottom: 5px;
+    height: 48px;
+}
+
+.plan-member .shares {
+    margin-bottom: 10px;
+}
+
+.plan-member .actions {
+    margin-bottom: 10px;
+    height: 34px;
+}
+
+.plan-member .status {
+    border-top: 1px solid rgba(206, 206, 210, 1);
+    padding-top: 5px;
+}
+
+.plan-member .status img {
+    position: relative;
+    right: 2px;
+}
+
+/*Cal Directive*/
+
+.cal {
+    display: inline-block;
+}
+
+.cal .number {
+    font-size: 1.05em;
+    font-weight: 400;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    margin-top: 13px;
+}
+
+/*Modal*/
+
+#login-modal-body .social-auth-icons a:hover, #login-modal-body .social-auth-icons a:focus {
+    text-decoration: none;
+}
+
+#login-modal-body .windows-user {
+    font-size: 1.2em;
+}
+
+#login-modal-body .faq .accordion-toggle {
+    outline: none;
+}
+
+#login-modal-body .faq .panel-group{
+    margin-bottom: 10px;
+}
+
+#login-modal-body .faq .question {
+    color: #169ece;
+    cursor: pointer;
+}
+
+#login-modal-body .faq {
+    font-size: .9em;
+}
+
+.modal-header .modal-title {
+    width: 95%;
+}
+
+.modal-header .close {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+}
+
+.modal-body.plan-modal {
+    background-color: #f0f8ff;
+}
+
+.modal-body .plan-info .edit, .modal-body.items-select-modal .select-all {
+    color: #808080;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.modal-body .plan-info .plan-info-field-content .col-title {
+    text-transform: uppercase;
+    font-size: .8em;
+    color: #808080;
+}
+
+.modal-body .plan-info .plan-info-field-content {
+    padding-bottom: 15px;
+    overflow: hidden;
+}
+
+.modal-body .plan-info .plan-info-field-content.has-error .form-control {
+    border-color: #a94442;
+}
+
+.modal-body .plan-info .plan-info-field-content.no-overflow {
+    overflow: visible;
+}
+
+.modal-body.items-select-modal .item-to-select .check-sign {
+    position: absolute;
+    bottom: 26px;
+    left: 26px;
+}
+
+.modal-body.items-select-modal .item-to-select .plan-item {
+    margin-left: 0;
+    margin-right: 0;
+    cursor: pointer;
+}
+
+.modal-body.items-select-modal .item-to-select .plan-item:hover {
+    background-color: #ceced2;
+}
+
+.modal-body .plan-info .plan-info-field-content .chosen-container {
+    min-width: 100%;
+}
+
+.modal-footer .actions .cancel {
+    color: #808080;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+}
+
+.confirm-modal .notification-sign {
+    color: #333f4f;
+    font-size: 3em;
+}
+
+.confirm-modal .notification-text-col {
+    height: 42px;
+    display: flex;
+    align-items: center;
+}
+
+.confirmation-modal .sign-row {
+    text-align: center;
+    color: #333f4f;
+    font-size: 3em;
+}
+
+.confirmation-modal .notification-text-col {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.location-modal .search-form {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.location-modal .search-form input {
+    border-radius: 100px;
+    border: 1px solid #bebebe;
+    width: 100%;
+    padding-left: 10px;
+    height: 32px;
+}
+
+.location-modal .search-form input::focus {
+    border: 1px solid #808080;
+}
+
+.location-modal .search-form label {
+    color: #bebebe;
+    cursor: pointer;
+    font-size: 1.2em;
+    position: absolute;
+    right: 25px;
+    top: 3px;
+}
+
+.location-modal .search-form label:hover {
+    color: #808080;
+}
+
+.location-modal .actions {
+    float: right;
+}
+
+.location-modal .actions .btn {
+    position: relative;
+    bottom: 2px;
+}
+
+.location-modal .address {
+    margin-top: 5px;
+}
+
+.location-modal .info-message, .location-modal .first-time-info {
+    margin: 0 0 5px;
+    text-align: center;
+}
+
+.location-modal .first-time-info .main-info {
+    font-size: 1.6em;
+}
+
+.location-modal .first-time-info .additional-info {
+    font-size: .8em;
+}
+
+/*Other*/
+
+.socials .social-icon {
+    border-radius: 100%;
+    border: 1px solid #808080;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 6px;
+    height: 26px;
+    width: 26px;
+    line-height: 23px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    bottom: 2px;
+}
+
+.support .supported.ng-hide-remove {
+    animation: 2s opacityFadeIn;
+}
+
+.actions .btn {
+    color: #fff;
+    background: #1eb1ed;
+    border-radius: 3px;
+}
+
+.user-avatar {
+    border-radius: 100%;
+    color: #979797;
+    background-color: #e6eaef;
+    border: 1px solid #979797;
+    height: 42px;
+    width: 42px;
+    line-height: 42px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.user-avatar img {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    position: relative;
+    top: -2px;
+}
+
+.chat-icon .circle {
+    border-radius: 100%;
+    background-color: #333f4f;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    height: 60px;
+    width: 60px;
+}
+
+.plan-content.closed .chat-icon .circle {
+    background-color: #d2935d;
+}
+
+.chat-icon .circle img {
+    position: relative;
+    top: 18px;
+}
+
+.chat-icon .user-avatar.circle {
+    font-size: 1.5em;
+    line-height: 60px;
+    color: #fff;
+}
+
+.chat-icon .user-avatar.circle img {
+    height: 58px;
+    width: 58px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+
+.chat-icon .user-avatar.circle img.service-logo {
+    height: 63px;
+    width: 63px;
+    left: -2px;
+    top: -2px;
+}
+
+.chat-icon .user-avatar.circle.service-question-logo {
+    font-size: 3em;
+    font-weight: 400;
+    line-height: 55px;
+    cursor: default;
+}
+
+.plan-main-image, .plan-add-image .small-image {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+    padding-top: 75%;
+    background-color: #fff;
+}
+
+.col-title {
+    cursor: default;
+}
+
+.alert-notification {
+    background-color: #333f4f;
+    color: #fff;
+    border: none;
+}
+
+.alert-notification img.close-image {
+    cursor: pointer;
+    float: right;
+}
+
+.plan-add-image-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.plan-add-image-container .plan-add-image {
+    color: #fff;
+    background-color: #e6eaef;
+    font-size: 4em;
+    display: inline-block;
+    width: 110px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.plan-add-image-container .plan-add-image {
+    border: 1px solid #ceced2;
+}
+
+.plan-add-image-container .plan-add-image:hover {
+    background-color: #c1cbd7;
+}
+
+.plan-add-image-container .plan-add-image.image-filled:hover {
+    border-color: #808080;
+}
+
+.plan-add-image-container .plan-add-image .small-image {
+    background-position: 25% 25%;
+}
+
+.plan-add-image-container .plan-add-image.image-blank {
+    cursor: default;
+}
+
+.plan-add-image-container .plan-add-image.image-blank:hover {
+    background: #e6eaef;
+}
+
+.plan-add-image-container .plan-add-image.image-filled {
+    position: relative;
+    top: 20px;
+}
+
+.plan-add-image-container .plan-add-image.has-error {
+    border-color: #a94442;
+}
+
+.plan-add-image-container .plan-add-image .edit {
+    background-color: #808080;
+    bottom: 0;
+    color: #fff;
+    font-size: 0.25em;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+    padding: 0 9px;
+    border-top-left-radius: 7px;
+}
+
+.pagination-area .items-per-page {
+    float: right;
+}
+
+.pagination-area .items-per-page .title {
+    font-size: .9em;
+}
+
+.pagination-area .items-per-page .combo-area {
+    display: inline-block;
+    width: 56px;
+}
+
+.go-to-plan img {
+    cursor: pointer;
+}
+
+/*Override*/
+
+tags-input .tags .tag-item .remove-button {
+    color: #fff;
+}
+
+.input-group-addon {
+    background-color: #e6eaef;
+}
+
+.btn-group > .btn:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.btn-group > .btn:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #1eb1ed;
+    border-color: #1eb1ed;
+}
+
+/*Media Queries*/
+
+/*extra small*/
+@media (max-width: 767px) {
+
+    header .container {
+        padding: 0 20px;
+    }
+
+    header .beta {
+        bottom: 16px;
+        font-size: 0.5em;
+        left: 62px;
+    }
+
+    header .user-info .user-name {
+        font-size: .9em;
+        max-width: 108px;
+    }
+
+    header .user-info .user-controls .user-dropdown-area {
+        left: 38%;
+        margin-right: -62%;
+    }
+
+    .item-list-content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .item-list-content .plan-list .plan-list-item {
+        margin-right: 10px;
+    }
+
+    .item-list-content .plan-list .plan-info-header {
+        height: 35px;
+    }
+
+    .item-list-content .plan-list .plan-info-header .plan-title {
+        font-size: 1em;
+        line-height: 1.1em;
+        overflow: hidden;
+        height: 33px;
+    }
+
+    .item-list-content .plan-list .plan-info-header .price .price-value {
+        font-size: 1.3em;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-stats .stat-info {
+        font-size: .8em;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-info {
+        height: initial;
+        border-bottom: none;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-main-info {
+        max-height: 95px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-additional-info {
+        height: initial !important;
+        margin-top: 5px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .actions .favorites {
+        font-size: .75em;
+        position: relative;
+        top: 4px;
+    }
+
+    .item-list-content .distance {
+        background: none;
+        border: none;
+    }
+
+    .pagination-area {
+        width: 94%;
+    }
+
+    .pagination-area .pagination-outter {
+        text-align: center;
+    }
+
+    .pagination .pagination-first, .item-list-content .pagination .pagination-last {
+        display: none;
+    }
+
+    .plan-content > .subheader {
+        padding: 0;
+    }
+
+    .plan-content .subheader .plan-title-and-category .plan-title {
+        font-size: 1.2em;
+        margin-top: 4px;
+    }
+
+    .plan-content .subheader .plan-title-and-category .plan-category {
+        margin-bottom: 2px;
+        margin-top: 0;
+    }
+
+    .plan-content .subheader .price {
+        margin-right: 5%;
+    }
+
+    .plan-content .subheader .price .price-value {
+        font-size: 1.5em;
+    }
+
+    .plan-content .showcase .image-control.control-left {
+        left: 14px;
+    }
+
+    .plan-content .showcase .image-control.control-right {
+        right: 14px;
+    }
+
+    .alert-notification {
+        font-size: .9em;
+    }
+
+    .plan-content .showcase .plan-images {
+        margin: 3% 3% 0;
+    }
+
+    .plan-content .showcase .plan-info {
+        width: 100%;
+    }
+
+    .plan-content .showcase .plan-info .key-stats {
+        margin-top: 0;
+        padding-bottom: 10px;
+        border-bottom: none;
+    }
+
+    .plan-content .showcase .plan-info .key-stats .stat-info {
+        font-size: .7em;
+        margin-top: 5px;
+    }
+
+    .plan-content .showcase .description-area {
+        padding: 1% 3%;
+        font-size: .8em;
+        line-height: 18px;
+        height: initial;
+        border-bottom: none;
+    }
+
+    .plan-content .showcase .plan-info .actions {
+        margin: 10px 0;
+        padding: 2.3%;
+    }
+
+    .plan-content .showcase .join-team .joined-info {
+        font-size: 1em;
+    }
+
+    .plan-content .cost-members {
+        padding: 30px 0;
+    }
+
+    .plan-content .cost-members .cost .price-info {
+        margin-left: 10px;
+        font-size: .8em;
+    }
+
+    .plan-content .cost-members .cost .control-span {
+        padding-left: 6px;
+    }
+
+    .plan-content .cost-members .cost .price-info td {
+        width: 46%;
+    }
+
+    .plan-content .cost-members .subsection-title {
+        margin-top: 20px;
+        font-size: 1.6em;
+    }
+
+    .plan-content .cost-members .membership {
+        font-size: .9em;
+    }
+
+    .plan-content .voting .subsection-header .subsection-title, .plan-content .share-requests .subsection-header .subsection-title, .plan-content .payment .subsection-title {
+        font-size: 1.6em;
+    }
+
+    .plan-content .voting {
+        padding: 20px 0 0;
+    }
+
+    .plan-content .voting .subsection-header .subsection-title {
+        margin-bottom: 0;
+    }
+
+    .plan-content .voting .subsection-header .additional-info {
+        font-size: .9em;
+        position: relative;
+        bottom: 5px;
+    }
+
+    .plan-content .voting .filter-row {
+        text-align: center;
+    }
+
+    .plan-content .voting .filter-area {
+        margin-right: 0;
+        margin-bottom: 20px;
+        float: none;
+        display: inline-block;
+    }
+
+    .plan-content .voting .filter-area .btn {
+        position: static;
+    }
+
+    .plan-content .voting .filter-area .dropdown-menu {
+        top: 30px;
+    }
+
+    .question.new-one .plan-item .head .question {
+        text-align: center;
+    }
+
+    .plan-item {
+        margin: 20px 10px 40px;
+    }
+
+    .plan-item .btn {
+        font-size: .9em;
+    }
+
+    .plan-item .head {
+        padding: 0;
+    }
+
+    .plan-item .head .question {
+        margin: 0 10px;
+    }
+
+    .plan-item .head .chat-icon-area {
+        text-align: center;
+        height: 25px;
+    }
+
+    .plan-item .head .chat-icon {
+        position: relative;
+        left: auto;
+        bottom: 30px;
+    }
+    .plan-item.share-request .head .head-footer, .plan-item.single-voting .head .head-footer {
+        margin-top: 3px;
+    }
+
+    .plan-item .col-title {
+        font-size: .6em;
+    }
+
+    .plan-item .col-value {
+        font-size: 1.1em;
+    }
+
+    .plan-item .head .proposals, .plan-candidate .content .supporters, .share-request .shares-requested {
+        margin-left: 10px;
+    }
+
+    .plan-item .answer .supporters, .plan-item .answer .reason {
+        margin-left: 20px;
+    }
+
+    .plan-item .head .question .leading-answer {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .plan-item .head .status {
+        margin-left: 35px;
+    }
+
+    .plan-item .price {
+        text-align: center;
+    }
+
+    .plan-item .content .support, .share-request .head .support, .single-voting .head .support {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .plan-item .head .status .col-value img {
+        left: 30px;
+        margin-top: 5px;
+        top: inherit;
+    }
+
+    .plan-candidate .support .supported img {
+        left: 18px;
+    }
+
+    .plan-item .content .answer {
+        padding-top: 10px;
+    }
+
+    .plan-item .content .answer .avatar {
+        left: 15px;
+    }
+
+    .plan-item .content .answer::after {
+        display: none;
+    }
+
+    .plan-item .content > .actions {
+        padding: 5px 0 25px;
+    }
+
+    .plan-item .content .discussion {
+        margin-top: 20px;
+    }
+
+    .plan-item .content .discussion {
+        margin: 20px 10px 5px;
+        padding: 5px 0;
+    }
+
+    .plan-item .content .discussion .subheader {
+        font-size: 1.1em;
+        margin-left: 6px;
+    }
+
+    .plan-item .support .supported img {
+        left: 18px;
+    }
+
+    .plan-item .content .answer .more-info {
+        margin-right: 0;
+    }
+
+    .plan-item .content .answer .more-info::after {
+        border-bottom: 1px solid rgba(206, 206, 210, 1);
+        content: "";
+        display: inline-block;
+        margin-bottom: 12px;
+        width: 91.5%;
+    }
+
+    .plan-item .content .answer .more-info .trigger {
+        position: static;
+    }
+
+    .plan-item .cancel-support {
+        z-index: 2;
+    }
+
+    .plan-item .content .details {
+        margin: 0;
+    }
+
+    .plan-item .content .details .full-info {
+        text-align: center;
+    }
+
+    .plan-item .content .answer .proposal {
+        margin: 5px 0 15px 20px;
+    }
+
+    .user-profile .main-info {
+        padding: 10px 10px 40px;
+    }
+
+    .user-profile .subsection-title {
+        font-size: 1.6em;
+    }
+
+    .user-profile .main-info .right-block {
+        margin: 0;
+        text-align: center;
+    }
+
+    .user-profile .main-info .right-block .info .name {
+        font-size: 2em;
+    }
+
+    .user-profile .main-info .right-block .info .email {
+        font-size: 1.2em;
+    }
+
+    .user-profile .main-info .right-block .rating {
+        margin: 0 10px;
+    }
+
+    .user-profile .main-info .user-image .chat-icon .circle.user-avatar {
+        height: 100px;
+        width: 100px;
+        line-height: 100px;
+        font-size: 3em;
+    }
+
+    .user-profile .main-info .user-image .chat-icon .circle.user-avatar img {
+        height: 98px;
+        width: 98px;
+    }
+
+    .user-profile .interests-connections .connections {
+        margin-top: 40px;
+    }
+
+    .user-profile .reviews .chat-area {
+        margin: 0 10px;
+    }
+
+    .user-profile .reviews .chat-area .reply-info {
+        font-size: .8em;
+    }
+
+    .user-profile .reviews .chat-area .percentage {
+        font-size: 1.4em;
+    }
+
+    .user-profile .reviews .chat-area .tool-links {
+        margin-left: 10px;
+    }
+
+    .reply-message-box .chat-reply .text-col textarea {
+        margin-left: 6px;
+    }
+
+    .plan-item .content .item-footer .less-info .trigger {
+        top: 1px;
+    }
+
+    .chat-area .reply-info {
+        font-size: .6em;
+    }
+
+    .chat-reply .actions, .chat-reply .actions .btn, .chat-reply .message {
+        font-size: .9em;
+    }
+
+    .chat-reply .user-avatar {
+        left: -10px;
+    }
+
+    .chat-reply .reply-data {
+        margin-left: 22px;
+    }
+
+    .chat-reply .message {
+        margin-left: 15px;
+    }
+
+    .chat-reply .reply-tools {
+        margin-left: 5px;
+    }
+
+    .chat-area .leaf {
+        margin-left: 15px;
+    }
+
+    .chat-area .leaf .chat-reply .message {
+        width: 96%;
+    }
+
+    .plan-item .head .question.new-one .leading-answer {
+        margin-bottom: 0;
+    }
+
+    .plan-content .share-requests {
+        margin-top: 20px;
+    }
+
+    .plan-content .share-requests .subsection-title {
+        margin-bottom: 0;
+    }
+
+    .plan-content .showcase .plan-images > .edit {
+        right: 35px;
+    }
+
+    .plan-item.share-request .content .additional-info {
+        margin: 20px 10px 0;
+    }
+
+    .plan-item.share-request .message .col-value {
+        font-size: .9em;
+    }
+
+    .single-voting .head .support {
+        margin-bottom: 38px;
+    }
+
+    .notifications .notifications-area .col-inner .check {
+        margin: 0;
+        position: relative;
+        right: 8px;
+    }
+
+}
+
+/*small*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+    header .user-info .user-name {
+        max-width: 97px;
+    }
+
+    header .user-info .user-controls {
+        width: 87%;
+    }
+
+    .categories-menu .category {
+        font-size: .9em;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-title {
+        font-size: 1.1em;
+        line-height: 1.1em;
+    }
+
+    .item-list-content .plan-list .plan-list-item .price .price-value {
+        font-size: 1.6em;
+    }
+
+    .item-list-content .plan-list .plan-list-item .message {
+        font-size: .8em;
+        margin-top: 2px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-main-info {
+        height: 133px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-additional-info {
+        height: 80px !important;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-info {
+        height: 195px;
+        border-bottom: none;
+    }
+
+    .item-list-content .plan-list .plan-list-item .actions {
+        font-size: .7em;
+        margin-top: 20px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-stats .stat-info {
+        font-size: .8em;
+    }
+
+    .item-list-content .plan-list .plan-list-item .actions .socials .social-icon {
+        margin-left: 0;
+        font-size: 1.4em;
+        position: relative;
+        bottom: 4px;
+    }
+
+    .plan-content .subheader .price {
+        margin-right: 7%;
+    }
+
+    .plan-content .notifications-area .alert-notification {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .plan-content .showcase .plan-info .key-stats {
+        padding-bottom: 28px;
+    }
+
+    .plan-content .showcase .plan-info .key-stats .stat-info {
+        font-size: .8em;
+    }
+
+    .plan-content .cost-members .cost .price-info, .plan-content .cost-members {
+        font-size: .9em;
+    }
+
+    .plan-content .cost-members .cost .control-span {
+        padding-left: 10px;
+    }
+
+    .plan-content .cost-members .cost .price-info td {
+        width: 51%;
+    }
+
+    .plan-item .head .chat-icon {
+        top: -5px;
+    }
+
+    .plan-item .proposals, .plan-item .supporters {
+        position: absolute;
+        left: 10px;
+    }
+
+    .plan-item .head .status .col-value img, .plan-item .support .supported img {
+        top: 20px;
+        left: -4px;
+    }
+
+    .plan-item .col-value {
+        font-size: 1.1em;
+    }
+
+    .plan-item .head .question .leading-answer {
+        margin-top: 3px;
+    }
+
+    .plan-item .content .item-footer .less-info .trigger {
+        top: 1px;
+    }
+
+    .plan-item .content .answer .avatar {
+        left: 25px;
+    }
+
+    .plan-item .content .details {
+        margin: 10px 10px 0 77px;
+        font-size: .9em;
+    }
+
+    .plan-item .content .discussion {
+        margin: 40px 25px 20px 5%;
+    }
+
+    .plan-item .head .proposals .propose-front {
+        font-size: .8em;
+    }
+
+    .chat-reply .user-avatar {
+        left: -31px;
+    }
+
+    .chat-area .reply-info {
+        font-size: .6em;
+    }
+
+    .chat-reply .actions, .chat-reply .actions .btn, .chat-reply .message {
+        font-size: .9em;
+    }
+
+    .plan-content .voting .question.new-one .plan-item .icon-area .fa-plus {
+        font-size: 4.2em;
+    }
+
+    .plan-item.share-request .head .chat-icon {
+        top: -2px;
+    }
+
+    .notifications .notifications-area .col-inner .check {
+        margin: 0;
+        position: relative;
+        right: 8px;
+    }
+}
+
+/*medium*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    header .user-info .user-name {
+        max-width: 178px;
+    }
+
+    header .user-info .user-controls {
+        width: 90%;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-info {
+        height: 250px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-main-info {
+        max-height: 170px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .plan-additional-info {
+        height: initial !important;
+    }
+
+    .item-list-content .plan-list .plan-list-item .actions {
+        position: absolute;
+        width: 95%;
+        bottom: -30px;
+    }
+
+    .item-list-content .plan-list .plan-list-item .actions .socials .social-icon {
+        height: 24px;
+        width: 24px;
+        line-height: 20px;
+    }
+
+    .plan-content .showcase .plan-add-image:not(:first-child) {
+        margin-left: 20px;
+    }
+
+    .plan-content .showcase .plan-info .key-stats .stat-info {
+        font-size: .8em;
+    }
+
+    .plan-content .showcase .plan-info .description-area {
+        height: 272px;
+        line-height: 20px;
+    }
+
+    .plan-content .showcase .plan-info .description-area .plan-description {
+        max-height: 80%;
+    }
+
+    .plan-item .content .answer .avatar {
+        left: 45px;
+    }
+
+    .plan-item .content .details {
+        margin-left: 95px;
+    }
+
+    .plan-item.share-request .head .chat-icon {
+        top: -2px;
+    }
+
+}
+
+/*large*/
+@media (min-width: 1200px) {
+
+    .plan-item.share-request .head .chat-icon {
+        top: -2px;
+    }
+
+}

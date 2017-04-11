@@ -1,0 +1,33 @@
+<div class="plan-member">
+    <div class="chat-icon">
+        <div class="circle" user-avatar model="member" large="true"></div>
+    </div>
+    <div class="user-info" ui-sref="home.userProfile({id: member.userId})">
+        <span ng-if="member.userId === user.id">You</span>
+        <span ng-if="member.userId !== user.id" ng-bind="member.firstName + ' ' + member.lastName"></span>
+    </div>
+    <div class="shares">
+        <div class="col-title">Shares Owned</div>
+        <div class="col-value">
+            <span ng-bind="member.shares"></span>
+            <span ng-switch="member.shares">
+                <span ng-switch-when="1">Share</span>
+                <span ng-switch-default>Shares</span>
+            </span>
+        </div>
+    </div>
+    <div class="actions">
+        <button ng-if="!!treasurer && !paid" class="btn" ng-click="markAsPaid()">Mark Paid</button>
+    </div>
+    <div class="status">
+        <div class="col-title">Status</div>
+        <div class="col-value">
+            <span ng-show="!paid">
+                <img ng-src="resources/images/check-sm-grey.svg">Pending
+            </span>
+            <span ng-show="paid">
+                <img ng-src="resources/images/check-sm.svg">Paid
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">Propose to Scrap</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmScrap.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal new-plan__step-content">
+    <div class="form-group">
+        <plan-field-input tip="Example: Because I find this item useless" errors="vmScrap.errors.reason">
+            <textarea placeholder="Why scrap this question?" class="form-control" rows="4" auto-focus
+                      ng-model="vmScrap.scrap.reason"></textarea>
+        </plan-field-input>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions"><button class="btn" ng-click="vmScrap.save()">Send Proposal</button></div>
+</div>

@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h4 class="modal-title">Import Questions</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmItemsSelect.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal new-plan__step-content plan__main items-select-modal">
+    <div class="select-all">
+        <span ng-show="(vmItemsSelect.items | property:'selected':true).length !== vmItemsSelect.items.length"
+              ng-click="vmItemsSelect.selectAllItems(true)">Select All</span>
+        <span ng-show="(vmItemsSelect.items | property:'selected':true).length === vmItemsSelect.items.length"
+              ng-click="vmItemsSelect.selectAllItems(false)">Deselect All</span>
+    </div>
+    <div class="question item-to-select" ng-repeat="item in vmItemsSelect.items" ng-click="item.selected = !item.selected">
+        <div class="plan-item">
+            <div class="head">
+                <div class="row">
+                    <div class="col-md-9">
+                        <img class="check-sign" ng-show="item.selected" ng-src="resources/images/check.svg">
+                        <div class="question">
+                            <div class="col-title">Question</div>
+                            <div class="col-value question-title" ng-bind="item.question"></div>
+                            <div class="leading-answer">
+                                <span ng-if="!!item.provider" ng-bind="item.provider  + ' - '"></span>
+                                <span ng-bind="item.name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="price" ng-if="item.typeId !== 'Policy'">
+                            <div class="col-title">
+                                <span ng-show="!item.reoccurringPrice">Cost</span>
+                                <span ng-show="item.reoccurringPrice">Yearly Recurring</span>
+                            </div>
+                            <div class="col-value" uib-tooltip="Unshared price" ng-bind="item.price | currency"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <button class="btn" ng-click="vmItemsSelect.save()">Select</button>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <h4 class="modal-title">Propose Candidate for Beign a Treasurer</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmCandidacyRequest.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal new-plan__step-content">
+    <div class="info-text">
+        The person will be responsible for collecting the money
+    </div>
+    <div class="form-group">
+        <plan-field-input tip="Choose a candidate from list"
+                          required="true"
+                          errors="vmCandidacyRequest.errors.userId">
+            <combo placeholder="Candidate"
+                   model="vmCandidacyRequest.request.userId"
+                   items="vmCandidacyRequest.candidacyList"
+                   filter-name="name"
+                   select-id="true"></combo>
+        </plan-field-input>
+        <plan-field-input tip="Example: Because this is very good candidate">
+            <textarea placeholder="Message"
+                      class="form-control"
+                      rows="4"
+                      ng-model="vmCandidacyRequest.request.message">
+            </textarea>
+        </plan-field-input>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <button class="btn"
+                ng-click="vmCandidacyRequest.send()">
+            Send Request
+        </button>
+    </div>
+</div>

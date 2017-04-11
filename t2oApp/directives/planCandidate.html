@@ -1,0 +1,171 @@
+<div class="plan-item plan-candidate">
+
+    <div id="treasurer-voting-head" class="head" ng-click="onExpand()"
+         ng-class="{'clickable': isUserSharePlan() && !!candidates.length, 'expanded': expanded || !candidates.length || !isUserSharePlan()}">
+        <div class="row visible-xs">
+            <div class="col-xs-12">
+                <div class="chat-icon-area">
+                    <div class="chat-icon">
+                        <div class="circle user-avatar service-question-logo">
+                            <img class="service-logo" ng-src="resources/images/favicon-circle.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="chat-icon hidden-xs">
+                    <div class="circle user-avatar service-question-logo">
+                        <img class="service-logo" ng-src="resources/images/favicon-circle.png">
+                    </div>
+                </div>
+                <div class="question">
+                    <div class="col-title">Question</div>
+                    <div class="col-value question-title" ng-bind="position"></div>
+                    <div class="leading-answer">
+                        <span ng-show="!candidates.length" class="hidden-xs">&nbsp;</span>
+                        <div class="propose-front visible-xs" ng-show="!disableVoting && isUserSharePlan() && !candidates.length">
+                            <span ng-click="propose()">Propose candidate</span>
+                        </div>
+                        <span ng-show="!!candidates.length" class="clickable"
+                              ng-bind="candidates[0].firstName + ' ' + candidates[0].lastName"
+                              ng-click="$event.stopPropagation()"
+                              ui-sref="home.userProfile({id: candidates[0].userId})"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 hidden-xs"></div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="proposals">
+                    <div class="col-title">Proposals</div>
+                    <div class="col-value">
+                        <span ng-bind="candidates.length"></span>
+                        <span ng-switch="candidates.length">
+                            <span ng-switch-when="1">Proposal</span>
+                            <span ng-switch-default>Proposals</span>
+                        </span>
+                    </div>
+                    <div class="propose-front hidden-xs" ng-show="!disableVoting && isUserSharePlan() && !candidates.length">
+                        <span ng-click="propose()">Propose candidate</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="status" ng-show="!!candidates.length">
+                    <div class="col-title">Status</div>
+                    <div class="col-value">
+                        <span ng-show="!candidates[0].accepted || isTied()">
+                            <img ng-src="resources/images/check-sm-grey.svg">
+                            <span ng-show="!candidates[0].accepted && !isTied()">Pending</span>
+                            <span ng-show="isTied()">Tie</span>
+                        </span>
+                        <span ng-show="candidates[0].accepted && !isTied()">
+                            <img ng-src="resources/images/check-sm.svg">Passed
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="more-info">
+                        <span class="trigger" ng-show="isUserSharePlan() && !!candidates.length && !expanded">
+                            More Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="treasurer-voting-content" class="content" ng-show="expanded">
+
+        <div class="answer" ng-repeat="request in candidates track by $index">
+            <div class="row">
+                <div class="col-md-1 col-sm-1 col-xs-2">
+                    <div class="avatar">
+                        <div user-avatar model="request.proposer" class="clickable"
+                             ui-sref="home.userProfile({id: request.proposer.id})"></div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-10">
+                    <div class="proposal">
+                        <div class="text clickable" ng-bind="request.firstName + ' ' + request.lastName"
+                             ui-sref="home.userProfile({id: request.userId})"></div>
+                        <div class="message" ng-bind="request.message"></div>
+                        <div class="shares-to-pass">
+                            <span shares-to-pass
+                                  participants="participants"
+                                  votes="request.votes"
+                                  number-to-agree="{{numberToAgree}}"
+                                  total-shares="{{totalShares}}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs">&nbsp;</div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="supporters">
+                        <div class="col-title">Supporters</div>
+                        <div class="col-value">
+                            <span ng-bind="request.votes.length"></span>
+                            <span ng-switch="request.votes.length">
+                                <span ng-switch-when="1">Supporter</span>
+                                <span ng-switch-default>Supporters</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="support">
+                        <div class="no-support" ng-show="!disableVoting && (request.votes.indexOf(user.id) === -1)">
+                            <button ng-click="toggleVote(request)" class="btn">Support</button>
+                        </div>
+                        <div class="supported" ng-show="request.votes.indexOf(user.id) !== -1">
+                            <div class="col-title">&nbsp;</div>
+                            <div class="col-value">
+                                <img ng-src="resources/images/check-sm.svg">Supported
+                            </div>
+                            <div ng-show="!disableVoting" class="cancel-support" ng-click="toggleVote(request)">Unsupport</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions" ng-show="!disableVoting && !!candidates.length">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div><button class="btn" ng-click="propose()">Propose Candidate</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="discussion">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="subheader">Discussion</div>
+                    <chat model="candidates[0]" user="user"
+                          view-id="treasurers"
+                          obj-id="{{candidates[0].objId}}"
+                          plan-id="{{planId}}"></chat>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="less-info">
+                        <span class="trigger" ng-click="onExpand()">
+                            Less Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

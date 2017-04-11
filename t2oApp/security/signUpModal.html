@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h3 class="modal-title">Create an Account</h3>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmSignUp.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <input type="text" placeholder="First name" class="form-control" required ng-model="vmSignUp.regData.firstName">
+    </div>
+    <div class="form-group">
+        <input type="text" placeholder="Last name" class="form-control" required ng-model="vmSignUp.regData.lastName">
+    </div>
+    <div class="form-group">
+        <input type="email" placeholder="Enter email" class="form-control" required ng-model="vmSignUp.regData.email">
+    </div>
+    <div class="form-group">
+        <input type="password" placeholder="Enter password" class="form-control" required
+               ng-model="vmSignUp.regData.password">
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <button class="btn" ng-click="vmSignUp.signUp()">Create Account</button>
+    </div>
+</div>

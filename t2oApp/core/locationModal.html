@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h4 class="modal-title" ng-bind="vmLocation.title"></h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmLocation.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal location-modal">
+    <div class="first-time-info">
+        <div class="row">
+            <div class="class-md-12">
+                <div class="main-info">What location are you sharing from?</div>
+                <div class="additional-info">This information is kept private</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-sm-10 col-xs-8">
+            <form class="search-form" ng-submit="vmLocation.searchForAddress()">
+                <input ng-model="vmLocation.address" placeholder="Enter address">
+                <label>
+                    <input class="position-left-hidden" type="submit">
+                    <i class="fa fa-search"></i>
+                </label>
+            </form>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-4">
+            <div class="actions">
+                <button class="btn" ng-click="vmLocation.locateMe()">Locate Me</button>
+            </div>
+        </div>
+    </div>
+    <div class="info-message">
+        <div class="row">
+            <div class="col-md-12">Put the maker defining your location by clicking on map</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <leaflet lf-center="vmLocation.place"
+                     markers="vmLocation.markers"
+                     bounds="vmLocation.bounds"
+                     width="100%" height="480px"></leaflet>
+        </div>
+    </div>
+    <div class="address" >
+        <div class="row">
+            <div class="col-md-12">
+                <span ng-bind="vmLocation.info"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <span class="cancel" ng-click="vmLocation.cancel()">Cancel</span>
+        <button class="btn" ng-click="vmLocation.ok()" ng-disabled="!vmLocation.markers.length">
+            <span ng-show="!vmLocation.location">Save</span>
+            <span ng-show="!!vmLocation.location">Update</span>
+        </button>
+    </div>
+</div>

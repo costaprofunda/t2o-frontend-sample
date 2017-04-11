@@ -1,0 +1,237 @@
+<div id="container">
+    <div id="content">
+        <div id="ajax-loader" ng-show="vmMain.showLoader" ng-cloak ng-class="{'loaded':true}">
+            <i class="fa fa-refresh fa-spin-custom"></i>
+        </div>
+        <div id="main-header">
+            <header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 col">
+                            <a class="main-logo" title="Home"
+                               ui-sref="home.itemList({categoryId: null, searchKeyword: ''})"
+                               ui-sref-opts="{reload: true}">
+                                <img class="hidden-xs" ng-src="resources/images/main-logo-new.png">
+                                <img class="visible-xs" ng-src="resources/images/main-logo-half.png">
+                                <span class="beta">alpha</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-5 hidden-xs col">
+                            <div class="col-content">
+                                <form class="search-form" ng-submit="vmMain.searchByKeyword()">
+                                    <input type="text" class="entry-field form-control"
+                                           placeholder="Search"
+                                           ng-model="vmMain.searchKeyword">
+                                    <label>
+                                        <input class="position-left-hidden" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs col">
+                            <div class="col-content text-center link">
+                                <button class="btn add-item" ui-sref="home.newItem({item: null})">Post a Product</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8 col">
+                            <div class="col-content invisible" ng-class="{'visible': vmMain.showSignComponents}">
+                                <div ng-if="vmMain.isAuthorized" class="btn-group user-info">
+                                    <div class="notification-controls" uib-dropdown
+                                         is-open="vmMain.notifications.opened">
+                                        <div id="notifications-dropdown" class="notifications hidden-xs"
+                                              ng-click="vmMain.onNotificationsClick()">
+                                            <img ng-src="resources/images/chat.svg">
+                                            <span ng-show="!!vmMain.notifications.unreadCount" class="unread-count"
+                                                  ng-bind="vmMain.notifications.unreadCount"></span>
+                                        </div>
+                                        <div class="notification-trigger visible-xs-inline-block"
+                                             ng-click="$event.stopPropagation(); vmMain.onNotificationsClick()">
+                                            <i class="fa fa-comment"></i>
+                                            <span class="unread-count" ng-bind="vmMain.notifications.unreadCount"></span>
+                                        </div>
+                                        <ul id="notifications-dropdown-menu" aria-labelledby="notifications-dropdown"
+                                            uib-dropdown-menu>
+                                            <i class="fa fa-caret-up clickable"></i>
+                                            <li ng-show="!!vmMain.notifications.items.length">
+                                                <a href="javascript:;" class="header"
+                                                   ng-click="vmMain.markNotificationAsRead()">
+                                                    Mark all as read
+                                                </a>
+                                            </li>
+                                            <li class="notification no-results" ng-show="!vmMain.notifications.items.length">
+                                                <span>No messages</span>
+                                            </li>
+                                            <li class="notification" ng-repeat="notification in vmMain.notifications.items track by $index">
+                                                <div class="row">
+                                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                                        <div class="col-inner">
+                                                            <span class="go-to-plan" ng-if="!!notification.planId"
+                                                                  ui-sref="home.itemReview({id: notification.planId})">
+                                                                <img ng-src="{{notification.planImageUrl}}">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-8 col-xs-8">
+                                                        <div class="col-inner">
+                                                            <span ng-style="{'color': (!notification.read) ? '#fff' : '#bebebe'}"
+                                                                  ng-bind="notification.message" class="text"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                                        <div class="col-inner">
+                                                            <span ng-show="!notification.read" class="read"
+                                                                  uib-tooltip="Mark as read" tooltip-placement="bottom"
+                                                                  ng-click="vmMain.markNotificationAsRead($event, notification)">
+                                                            <i class="fa fa-eye"></i>
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li ng-show="!!vmMain.notifications.items.length">
+                                                <a href="javascript:;" class="footer"
+                                                   ui-sref="home.notifications">
+                                                    View all notifications
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="user-controls" uib-dropdown>
+                                        <div class="user-dropdown-area">
+                                            <span id="user-dropdown" uib-dropdown-toggle>
+                                                <div user-avatar model="vmMain.userInfo" class="clickable"></div>
+                                                <span ng-bind="vmMain.userInfo.firstName + ' ' + vmMain.userInfo.lastName"
+                                                      class="user-name"></span>
+                                                <i class="fa fa-caret-down clickable"></i>
+                                            </span>
+                                        </div>
+                                        <ul uib-dropdown-menu aria-labelledby="user-dropdown" id="user-dropdown-menu">
+                                            <i class="fa fa-caret-up clickable"></i>
+                                            <li ng-if="vmMain.userInfo.isAdmin">
+                                                <a ng-href="{{vmMain.adminPageLink}}" target="_blank">Admin Page</a>
+                                            </li>
+                                            <li>
+                                                <a ui-sref="home.userProfile({id: vmMain.userInfo.id})">View Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;" ng-click="vmMain.changeUser()">Change User</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;" ng-click="vmMain.signOut()">Sign Out</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="sign-actions link" ng-if="!vmMain.isAuthorized">
+                                    <span class="clickable" ui-sref="home.login">Login</span>
+                                    | <span class="clickable" ui-sref="home.signUp">Sign Up</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="categories-menu" ng-mouseleave="vmMain.onCategoriesMenuMouseLeave()">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="categories-list">
+                                <li class="category visible-xs-inline-block">
+                                    <span ng-show="!vmMain.categoriesShowed"
+                                          class="clickable" ng-click="vmMain.onCategoriesShow()">
+                                        View Categories
+                                    </span>
+                                    <span ng-show="vmMain.categoriesShowed"
+                                          class="clickable" ng-click="vmMain.onCategoriesShow()">
+                                        Hide Categories
+                                    </span>
+                                </li>
+                                <li class="category">
+                                    <span class="clickable"
+                                          ng-click="vmMain.selectedCategoryIndex = -1"
+                                          ui-sref="{{'home.itemList({categoryId: null, searchKeyword: vmItemList.searchKeyword})'}}">
+                                        All categories
+                                    </span>
+                                </li>
+                                <li class="category visible-xs-inline-block">
+                                    <span class="clickable"
+                                          ng-click="vmMain.onSearchShow()">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </li>
+                                <li ng-repeat="parentCat in vmMain.categoryTree"
+                                    uib-dropdown is-open="vmMain.selectedCategoryIndex === $index"
+                                    class="category hidden-xs" ng-class="{'selected': vmMain.selectedCategoryIndex == $index}">
+                                    <span id="{{'category-dropdown-' + $index}}"
+                                          ng-bind="parentCat.name + ((!parentCat.count) ? '' : ' (' + parentCat.count + ')')"
+                                          ng-mouseover="vmMain.selectedCategoryIndex = $index"
+                                          ng-click="vmMain.onParentCategoryClick($event, $index)"></span>
+                                    <div class="categories-dropdown"
+                                         uib-dropdown-menu aria-labelledby="{{'category-dropdown-' + $index}}">
+                                        <div ng-repeat="childCat in vmMain.categoryTree[vmMain.selectedCategoryIndex].children" class="category-child">
+                                            <span ui-sref="{{'home.itemList({categoryId: childCat.id, searchKeyword: vmMain.searchKeyword})'}}"
+                                                  ng-bind="childCat.name + ((!childCat.count) ? '' : ' (' + childCat.count + ')')"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul id="categories-area" class="visible-xs" ng-show="vmMain.categoriesShowed">
+                                <li ng-repeat="parentCat in vmMain.categoryTree"
+                                    class="category" ng-class="{'selected': vmMain.selectedCategoryIndex == $index}">
+                                    <span ng-bind="parentCat.name + ((!parentCat.count) ? '' : ' (' + parentCat.count + ')')"
+                                          ng-click="vmMain.selectedCategoryIndex = ((vmMain.selectedCategoryIndex !== -1) ? -1 : $index)"></span>
+                                    <ul ng-show="vmMain.selectedCategoryIndex === $index" class="children">
+                                        <li ng-repeat="childCat in parentCat.children" class="category">
+                                            <span ui-sref="{{'home.itemList({categoryId: childCat.id, searchKeyword: vmMain.searchKeyword})'}}"
+                                                  ng-bind="childCat.name + ((!childCat.count) ? '' : ' (' + childCat.count + ')')"></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div id="search-area" class="visible-xs" ng-show="vmMain.searchShowed">
+                                <form class="search-form" ng-submit="vmMain.searchByKeyword()">
+                                    <input type="text" class="entry-field form-control"
+                                           placeholder="Search"
+                                           ng-model="vmMain.searchKeyword">
+                                    <span class="search-control">
+                                        <label>
+                                            <input class="position-left-hidden" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </label>
+                                    </span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-content">
+            <div class="container">
+                <div class="row">
+                    <!--<div class="col-sm-3 col-md-2 hidden-xs">-->
+                        <!--<div class="main-sidebar">-->
+                            <!--<div ui-view="advertisingPane"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="col-md-12">
+                        <div ui-view></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <p>
+            <a class="main-logo" title="Home"
+               ui-sref="home.itemList({categoryId: null, searchKeyword: ''})"
+               ui-sref-opts="{reload: true}">
+                <img ng-src="resources/images/main-logo-new.png">
+            </a>
+        </p>
+        <p>© 2016 team2own</p>
+    </div>
+</footer>

@@ -1,0 +1,51 @@
+<div class="two-alt-vote">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="proposal first-proposal" ng-hide="secondAltItems.indexOf(user.id) >= 0">
+                <div class="proposal-vote"
+                     ng-click="toggleVote(firstAltItems)"
+                     ng-class="{'my-vote': firstAltItems.indexOf(user.id) >= 0}">
+                    <span class="text-vote" ng-cloak>
+                        {{firstAltCaption}}
+                    </span>
+                    <!--<i class="fa fa-check" ng-show="firstAltItems.indexOf(user.id) >= 0"></i>-->
+                </div>
+                <vote-result-pane
+                        shortcut="true"
+                        participants="participants"
+                        number-to-agree="{{numberToAgree}}"
+                        total-shares="{{totalShares}}"
+                        votes="firstAltItems"></vote-result-pane>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="voting-info">
+                <div class="caption">
+                    <strong ng-cloak>{{title}}</strong>
+                </div>
+                <div class="out-link">
+                    <a href="javascript:;" ng-click="linkClick()">View details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="proposal second-proposal" ng-hide="firstAltItems.indexOf(user.id) >= 0">
+                <div class="proposal-vote"
+                     ng-click="toggleVote(secondAltItems, true)"
+                     ng-class="{'my-vote': secondAltItems.indexOf(user.id) >= 0}">
+                    <span class="text-vote" ng-cloak>
+                        {{secondAltCaption}}
+                    </span>
+                    <!--<i class="fa fa-check" ng-show="secondAltItems.indexOf(user.id) >= 0"></i>-->
+                </div>
+                <vote-result-pane
+                        shortcut="true"
+                        participants="participants"
+                        number-to-agree="{{numberToAgree}}"
+                        total-shares="{{totalShares}}"
+                        mirrored="true"
+                        votes="secondAltItems"></vote-result-pane>
+            </div>
+        </div>
+    </div>
+</div>

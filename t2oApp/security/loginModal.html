@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h3 class="modal-title">Sign in to your account</h3>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmLogin.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div id="login-modal-body" class="modal-body">
+    <p class="windows-user">
+        Please enable pop-ups so the facebook login can appear
+    </p>
+    <uib-accordion class="faq">
+        <uib-accordion-group is-open="vmItemList.questionOpen">
+            <uib-accordion-heading tabindex="-1">
+                <h4 class="question">
+                    <i class="fa fa-facebook-square"></i> Why do I have to use my facebook account to join?
+                    <i class="pull-right fa" ng-class="{'fa-chevron-down': !vmItemList.questionOpen, 'fa-chevron-up': vmItemList.questionOpen}"></i>
+                </h4>
+            </uib-accordion-heading>
+            <p>We want to ensure that the members of team2own have the highest level of trust. Many social networks are suffering from fake accounts, and we feel that Facebook has done a good job of maintaining a valid user list. This also enables you to virtually meet people that might be interested in joining your purchasing plans.</p>
+        </uib-accordion-group>
+    </uib-accordion>
+    <p>If you have an account with us, please enter your details below</p>
+    <div class="form-group" ng-class="{'has-error':!!vmLogin.errorMessage}">
+        <input placeholder="Your email" id="login-input" class="form-control" type="text"
+               ng-model="vmLogin.credentials.email">
+        <input placeholder="Your password" id="password-input" class="form-control" type="password"
+               ng-model="vmLogin.credentials.password">
+    </div>
+    <div class="error-div">{{vmLogin.errorMessage}}</div>
+    <div class="actions text-right">
+        <button class="btn" ng-click="vmLogin.login()">Login</button>
+    </div>
+</div>
+<div class="modal-footer">
+    <form ng-submit="vmLogin.facebookLogin()">
+        <div class="actions">
+            <button class="btn" type="submit">
+                <i class="fa fa-facebook-square"></i> Login
+            </button>
+        </div>
+    </form>
+</div>

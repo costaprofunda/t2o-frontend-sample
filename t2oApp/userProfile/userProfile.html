@@ -1,0 +1,191 @@
+<div class="user-profile">
+
+    <div class="main-info">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="user-image">
+                    <div class="chat-icon">
+                        <div class="circle" user-avatar model="vmUserProfile.contactInfo" large="true"></div>
+                    </div>
+                    <!--<div class="change-password-link" ng-if="vmUserProfile.contactInfo.id === vmUserProfile.userInfo.id">-->
+                    <!--<a href="javascript:;" ng-click="vmUserProfile.onChangePasswordClick()">Change Password</a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="right-block">
+                    <div class="info">
+                        <div class="name" ng-bind="vmUserProfile.contactInfo | name"></div>
+                        <div class="email"
+                             ng-if="(vmUserProfile.contactInfo.id === vmUserProfile.userInfo.id) || vmUserProfile.usersConnected">
+                            <span ng-bind="vmUserProfile.contactInfo.email"></span>
+                            <span ng-bind="vmUserProfile.contactInfo.phone"></span>
+                        </div>
+                        <div class="actions" ng-if="vmUserProfile.contactInfo.id === vmUserProfile.userInfo.id">
+                            <span class="action" ng-click="vmUserProfile.onContactInfoEditClick()">Edit Contact Info</span>
+                        </div>
+                    </div>
+                    <div class="rating">
+                        <span class="average-rating"
+                              uib-tooltip="User Rating" tooltip-placement="right"
+                              ng-bind="vmUserProfile.rating + '%'"></span>
+                    </div>
+                    <div class="location">
+                        <div class="distance-from-you" ng-if="!!vmUserProfile.distanceFromYou">
+                            <span ng-bind="vmUserProfile.distanceFromYou"></span> mile radius from you
+                        </div>
+                        <div class="location-list" ng-if="vmUserProfile.contactInfo.id === vmUserProfile.userInfo.id">
+                            <div class="location-row" ng-if="!!vmUserProfile.locations.length">
+                                <span ng-bind="vmUserProfile.locations[0].displayName"></span>
+                            </div>
+                            <div class="actions">
+                                <span class="action"
+                                   ng-show="!vmUserProfile.locations.length"
+                                   ng-click="vmUserProfile.saveOrUpdateLocation()">Add Location</span>
+                                <span class="action"
+                                   ng-show="!!vmUserProfile.locations.length"
+                                   ng-click="vmUserProfile.saveOrUpdateLocation(vmUserProfile.locations[0])">Edit</span>
+                                <span class="action"
+                                   ng-show="!!vmUserProfile.locations.length" confirm
+                                   on-click="vmUserProfile.removeLocation(vmUserProfile.locations[0])">Remove</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="interests-connections">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="interests">
+                    <div class="subsection-title">Purchasing Interests</div>
+                    <div class="interesting-categories">
+                        <span ng-repeat="category in vmUserProfile.interests track by $index"
+                              ui-sref="{{'home.itemList({categoryId: category.id})'}}"
+                              class="category" ng-bind="category.name"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="connections">
+                    <div class="subsection-title">Connections</div>
+                    <div class="members">
+                        <div class="members-inner" ng-style="{'margin-left': (vmUserProfile.connections.length - 1)*30 + 'px'}">
+                            <div ng-repeat="member in vmUserProfile.connections track by $index"
+                                 user-avatar model="member" ui-sref="home.userProfile({id: member.id})"
+                                 ng-if="$index < 5" class="clickable"
+                                 ng-style="{'z-index': $index, 'right': ($index*10 + ((vmUserProfile.connections.length<5)?((5-vmUserProfile.connections.length)*5):0)) + 'px'}"
+                                 uib-tooltip="{{member.firstName + ' ' + member.lastName}}"
+                                 tooltip-placement="bottom"></div>
+                        </div>
+                    </div>
+                    <div class="more-members" ng-if="vmUserProfile.connections.length > 5"
+                         ng-bind="'+ ' + (vmUserProfile.connections.length - 5) + ' more'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="subsection-header">
+                    <div class="subsection-title">Reviews</div>
+                    <div class="additional-info">
+                        <span ng-show="!vmUserProfile.reviews.length">No Reviews Yet</span>
+                        <span ng-show="!!vmUserProfile.reviews.length">
+                            <span ng-bind="vmUserProfile.reviews.length"></span>
+                            <span ng-switch="vmUserProfile.reviews.length">
+                                <span ng-switch-when="1">Review</span>
+                                <span ng-switch-default>Reviews</span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="chat-area">
+                    <div class="review" ng-repeat="review in vmUserProfile.reviews track by $index">
+                        <div class="chat-reply" ng-hide="!vmUserProfile.postedReview && (vmUserProfile.userInfo.id === review.author.id)">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <div class="avatar-percentage">
+                                        <div class="chat-icon">
+                                            <div user-avatar model="review.author"
+                                                 class="circle clickable" large="true"
+                                                 ui-sref="home.userProfile({id: review.author.id})"></div>
+                                        </div>
+                                        <div class="percentage hidden-xs" ng-bind="review.percent + '%'"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 col-sm-10 col-xs-10 text-col">
+                                    <div class="reply-data">
+                                        <div class="reply-info">
+                                            <span ng-bind="review.author.firstName + ' ' + review.author.lastName"></span>
+                                            <span class="hidden-xs" ng-bind="review.createdAt | date: 'hh:mm MM/dd/yyyy'"></span>
+                                            <div class="visible-xs" ng-bind="review.createdAt | date: 'hh:mm MM/dd/yyyy'"></div>
+                                        </div>
+                                        <div class="percentage visible-xs" ng-bind="review.percent + '%'"></div>
+                                        <div class="message hidden-xs" ng-bind="review.message"></div>
+                                        <div class="reply-tools hidden-xs">
+                                            <span class="tool-links">
+                                                <span class="edit-actions" ng-if="vmUserProfile.userInfo.id === review.author.id">
+                                                    <span class="action" ng-click="vmUserProfile.onEditReviewClick(review)">Edit</span>
+                                                    <span class="action" confirm on-click="vmUserProfile.deleteReview(review)">Remove</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row visible-xs message-row mobilee">
+                                <div class="col-xs-12 message" ng-bind="review.message"></div>
+                                <div class="col-xs-12 reply-tools">
+                                            <span class="tool-links">
+                                                <span class="edit-actions" ng-if="vmUserProfile.userInfo.id === review.author.id">
+                                                    <span class="action" ng-click="vmUserProfile.onEditReviewClick(review)">Edit</span>
+                                                    <span class="action" confirm on-click="vmUserProfile.deleteReview(review)">Remove</span>
+                                                </span>
+                                            </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="post-review-area"
+                         ng-if="vmUserProfile.usersConnected && !vmUserProfile.postedReview">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 hidden-xs">
+                                <div class="reviewer">
+                                    <div class="chat-icon">
+                                        <div class="circle" user-avatar model="vmUserProfile.userInfo" large="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <message-box model="vmUserProfile.newReview.message"
+                                             placeholder="Leave a review"
+                                             post="vmUserProfile.postReview()"
+                                             cancel="vmUserProfile.onCancelReview()"
+                                             disabled="!vmUserProfile.isReviewReadyToBePosted()"></message-box>
+                                <div class="user-rating-setter">
+                                    <uib-rating ng-model="vmUserProfile.userRating"
+                                                max="vmUserProfile.maxStars"
+                                                on-hover="vmUserProfile.hoveringOverRating(value)"
+                                                on-leave="vmUserProfile.overStar = null"
+                                                titles="['one','two','three', 'four', 'five']"
+                                                aria-labelledby="default-rating"></uib-rating>
+                                            <span class="label label-info" ng-show="vmUserProfile.overStar"
+                                                  ng-bind="vmUserProfile.percentValue + '%'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

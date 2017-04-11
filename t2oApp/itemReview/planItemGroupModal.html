@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h4 class="modal-title">Submit a New Question for a Team Vote</h4>
+    <button type="button" class="close" data-dismiss="modal" ng-click="vmPlanItemGroup.cancel()">
+        <img ng-src="resources/images/times-dark.svg" alt="Close">
+    </button>
+</div>
+<div class="modal-body plan-modal new-plan__step-content">
+    <div class="form-group">
+        <plan-field-input tip="Example: How will money be collected?"
+                          errors="vmPlanItemGroup.errors.question"
+                          required="true">
+            <input class="form-control"
+                   placeholder="Enter your question"
+                   uib-typeahead="question as question.title for question in vmPlanItemGroup.questions | filter:{title:$viewValue}"
+                   typeahead-min-length="0"
+                   typeahead-on-select="vmPlanItemGroup.onQuestionSelect()"
+                   ng-disabled="!!vmPlanItemGroup.planItemGroup.question.id"
+                   ng-model="vmPlanItemGroup.planItemGroup.question.title">
+        </plan-field-input>
+    </div>
+    <div class="info-text">
+        The answer to your question will fall into one of 3 categories.
+        Pick category that best fits your questions answer (either Accessory, Service or a Policy).
+    </div>
+    <selector model="vmPlanItemGroup.planItemGroup.type"
+              required="true"
+              items="vmPlanItemGroup.types"
+              errors="vmPlanItemGroup.errors.type"
+              filter-name="name"
+              disabled="!!vmPlanItemGroup.planItemGroup.question.id"></selector>
+    <div class="info-text" ng-show="vmPlanItemGroup.planItemGroup.type.identity === 'ACCESSORY'">
+        What is an Accessory?
+        This is basically an Ad-On product.
+        For example, if the purchasing plan was a boat, it might be trailer for the boat.
+    </div>
+    <div class="info-text" ng-show="vmPlanItemGroup.planItemGroup.type.identity === 'SERVICE'">
+        What is a Service?
+        This is basically an action of doing work, like cleaning, storage and maintenance.
+    </div>
+    <div class="info-text" ng-show="vmPlanItemGroup.planItemGroup.type.identity === 'POLICY'">
+        What is a Policy?
+        A policy is a rule that your team agrees to follow, and usually isn't attached to any services or
+        accessories.
+    </div>
+    <h4 ng-show="!!vmPlanItemGroup.planItemGroup.type">Give an answer</h4>
+
+    <div ng-show="!!vmPlanItemGroup.planItemGroup.type">
+        <alternative new-item="vmPlanItemGroup.planItemGroup.item"
+                     submit="vmPlanItemGroup.save"
+                     type="vmPlanItemGroup.planItemGroup.type"></alternative>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <button class="btn" ng-click="vmPlanItemGroup.saveWithoutAnswer(true)" type="button">
+            <span>Post without answer</span>
+        </button>
+        <button class="btn" ng-show="!!vmPlanItemGroup.planItemGroup.type && !!vmPlanItemGroup.planItemGroup.item.name"
+                ng-click="vmPlanItemGroup.save()">
+            <span>Post with answer</span>
+        </button>
+    </div>
+</div>

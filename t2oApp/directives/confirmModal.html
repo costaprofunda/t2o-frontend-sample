@@ -1,0 +1,16 @@
+<div class="modal-body confirm-modal">
+    <div class="row">
+        <div class="col-md-4 col-xs-4 col-sm-4">
+            <i class="fa fa-exclamation-triangle notification-sign"></i>
+        </div>
+        <div class="col-md-8 col-xs-8 col-sm-8 notification-text-col">
+            <span class="notification-text" ng-bind="vmConfirm.text"></span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+        <span class="cancel" ng-click="vmConfirm.cancel()">Cancel</span>
+        <button class="btn" ng-click="vmConfirm.ok()">Confirm</button>
+    </div>
+</div>

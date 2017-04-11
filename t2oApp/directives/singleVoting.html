@@ -1,0 +1,104 @@
+<div class="plan-item single-voting">
+
+    <div id="ready-to-buy-voting-head" class="head" ng-click="onExpand()"
+         ng-class="{'clickable': isUserSharePlan(), 'expanded': question.expanded || !isUserSharePlan()}">
+        <div class="row visible-xs">
+            <div class="col-xs-12">
+                <div class="chat-icon-area">
+                    <div class="chat-icon">
+                        <div class="circle user-avatar service-question-logo">
+                            <img class="service-logo" ng-src="resources/images/favicon-circle.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="chat-icon hidden-xs">
+                    <div class="circle user-avatar service-question-logo">
+                        <img class="service-logo" ng-src="resources/images/favicon-circle.png">
+                    </div>
+                </div>
+                <div class="question">
+                    <div class="col-title">Question</div>
+                    <div class="col-value question-title" ng-bind="title"></div>
+                    <div class="shares-to-pass">
+                        <span shares-to-pass
+                              participants="participants"
+                              votes="question.votes"
+                              number-to-agree="{{numberToAgree}}"
+                              total-shares="{{totalShares}}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 hidden-xs"></div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="proposals">
+                    <div class="col-title">Supporters</div>
+                    <div class="col-value">
+                        <span ng-bind="question.votes.length"></span>
+                        <span ng-switch="question.votes.length">
+                            <span ng-switch-when="1">Supporter</span>
+                            <span ng-switch-default>Supporters</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="support" ng-show="isUserSharePlan()">
+                    <div class="no-support" ng-show="question.votes.indexOf(user.id) === -1">
+                        <button ng-click="toggleVote(question); $event.stopPropagation()" class="btn">Support</button>
+                    </div>
+                    <div class="supported" ng-show="question.votes.indexOf(user.id) !== -1">
+                        <div class="col-title">&nbsp;</div>
+                        <div class="col-value">
+                            <img ng-src="resources/images/check-sm.svg">Supported
+                        </div>
+                        <div class="cancel-support" ng-click="toggleVote(question); $event.stopPropagation()">Unsupport</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="more-info">
+                        <span class="trigger" ng-show="isUserSharePlan() && !question.expanded">
+                            More Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ready-to-buy-voting-content" class="content" ng-show="question.expanded">
+
+        <div class="discussion">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="subheader">Discussion</div>
+                    <chat model="question" user="user"
+                          view-id="ready-to-buy-voting"
+                          obj-id="{{question.objId}}"
+                          plan-id="{{planId}}"></chat>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-footer">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="less-info">
+                        <span class="trigger" ng-click="onExpand()">
+                            Less Info
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,196 @@
+<div class="item-list-content">
+
+    <div class="actions">
+        <div class="row hidden-md hidden-lg">
+            <div class="col-sm-12 col-xs-12">
+                <button class="btn add-item" ui-sref="home.newItem({item: null})">Post a Product</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="plan-category" ng-if="!!vmItemList.categoryName.child">
+        <a ui-sref="{{'home.itemList({categoryId: null, searchKeyword: vmItemList.searchKeyword})'}}">Home</a>
+        &nbsp;/&nbsp;
+        <span ng-bind="vmItemList.categoryName.parent"></span>
+        &nbsp;/&nbsp;
+        <span ng-bind="vmItemList.categoryName.child"></span>
+    </div>
+
+    <uib-tabset ng-class="{'no-plans': !vmItemList.planList.length}">
+        <uib-tab heading="All Posts" active="true" select="vmItemList.getPlansByParticipation(false)"></uib-tab>
+        <uib-tab heading="My Teams" ng-if="vmItemList.authorized" select="vmItemList.getPlansByParticipation(true)"></uib-tab>
+    </uib-tabset>
+
+    <div class="plan-list">
+
+        <uib-alert class="alert-notification" ng-show="vmItemList.showNoItemsMessage">
+            No items have been found
+            <img ng-src="resources/images/times-white.svg" class="close-image" alt="Close"
+                 ng-click="vmItemList.showNoItemsMessage = false">
+        </uib-alert>
+
+        <div ng-show="vmItemList.itemsLoaded"
+             ng-repeat="plan in vmItemList.planList track by plan.id"
+             class="plan-list-item">
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-show="!!plan.distance" class="distance">
+                        <span ng-bind="plan.distance"></span> mile radius from you
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-4">
+                    <div class="plan-info-header visible-xs">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <div class="plan-title" ng-bind="plan.title" ui-sref="home.itemReview({id: plan.id})"></div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="price">
+                                    <div class="price-value" ng-bind="plan.pricePerShare | currency"></div>
+                                    <div class="price-description">per share</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="plan-main-image" ng-cloak ui-sref="home.itemReview({id: plan.id})"
+                         ng-style="{'background-image':'url(' + plan.planImageUrl + ')'}"></div>
+                    <div class="actions visible-sm">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="favorites invisible">
+                                    <i class="fa fa-star-o"></i> Add to favorites
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="socials">
+                                    <span class="social-icon" ng-click="vmItemList.publishToFacebook(plan)">
+                                        <i class="fa fa-facebook"></i>
+                                    </span>
+                                    <span class="social-icon" ng-click="vmItemList.onSendEmailClick(plan)">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-8">
+                    <div class="plan-info" id="{{'plan-info-' + $index}}">
+                        <div class="info-block plan-main-info" id="{{'plan-main-info-' + $index}}">
+                            <div class="row hidden-xs">
+                                <div class="col-lg-9 col-md-8 col-sm-8">
+                                    <div class="plan-title" ng-bind="plan.title" ui-sref="home.itemReview({id: plan.id})"></div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-4">
+                                    <div class="price">
+                                        <div class="price-value" ng-bind="plan.pricePerShare | currency"></div>
+                                        <div class="price-description">per share</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="message" ng-bind="plan.description"></div>
+                        </div>
+                        <div class="plan-additional-info" id="{{'plan-additional-info-' + $index}}">
+                            <div class="info-block plan-stats">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="stat-icon">
+                                            <cal label="{{!plan.daysToGo ? '!' : plan.daysToGo}}"></cal>
+                                        </div>
+                                        <div class="stat-info">
+                                            <span ng-show="!!plan.daysToGo"
+                                                  uib-tooltip="Days till close vote"
+                                                  tooltip-placement="bottom">
+                                                <span ng-bind="plan.daysToGo"></span>
+                                                <span ng-switch="plan.daysToGo">
+                                                    <span ng-switch-when="1">Day Left</span>
+                                                    <span ng-switch-default>Days Left</span>
+                                                </span>
+                                            </span>
+                                            <span ng-show="!plan.daysToGo" ng-switch="plan.state">
+                                                <span ng-switch-when="READY_TO_BUY">Ready To Buy</span>
+                                                <span ng-switch-when="CLOSED">Closed</span>
+                                                <span ng-switch-default>Finalizing</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="stat-icon"><img ng-src="resources/images/lock.svg"></div>
+                                        <div class="stat-info">
+                                            <span ng-bind="plan.openShares"></span>
+                                            <span ng-switch="plan.openShares">
+                                                <span ng-switch-when="1">Open Share</span>
+                                                <span ng-switch-default>Open Shares</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="stat-icon"><img ng-src="resources/images/handshake-2.svg"></div>
+                                        <div class="stat-info">
+                                            <span ng-bind="plan.votingPolicy"></span>% to Pass
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions hidden-sm">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-7">
+                                <div class="favorites invisible">
+                                    <i class="fa fa-star-o"></i> Add to favorites
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-5">
+                                <div class="socials">
+                                    <span class="hidden-xs">Tell a friend: </span>
+                                    <span class="social-icon" ng-click="vmItemList.publishToFacebook(plan)">
+                                        <i class="fa fa-facebook"></i>
+                                    </span>
+                                    <span class="social-icon" ng-click="vmItemList.onSendEmailClick(plan)">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination-area" ng-show="!!vmItemList.planList.length">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="pagination-outter">
+                    <uib-pagination ng-model="vmItemList.pager.currentPage"
+                                    total-items="vmItemList.pager.totalCount"
+                                    items-per-page="vmItemList.pager.pageSize"
+                                    max-size="vmItemList.pager.maxSize"
+                                    boundary-links="true"
+                                    rotate="false"
+                                    class="pagination-sm"
+                                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                                    ng-change="vmItemList.pageChanged()"></uib-pagination>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="items-per-page">
+                    <span class="title">Plans per Page:</span>
+                    <combo placeholder="Category"
+                           no-search="true"
+                           model="vmItemList.pager.pageSize"
+                           items="vmItemList.pageSizeList"></combo>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<uib-tab heading="Recently Viewed">-->
+    <!--No content-->
+    <!--</uib-tab>-->
+
+    <!--<uib-tab heading="Friends Posts">-->
+    <!--No content-->
+    <!--</uib-tab>-->
+</div>
