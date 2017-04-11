@@ -1,0 +1,13 @@
+*.iml
+.idea
+target
+bower_components
+node_modules
+.DS_Store
+*.log
+.tmp
+dist
+layout
+.grunt
+_SpecRunner.html
+t2oApp/core/constants/env.js
